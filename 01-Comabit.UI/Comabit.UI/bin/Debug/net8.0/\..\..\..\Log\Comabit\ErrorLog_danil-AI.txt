@@ -1,0 +1,625 @@
+2024.08.18 14:28:35.910 ThreadId=18 Error Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncMethodBuilderCore.Start => <Invoke>d__14.MoveNext => DiagnosticsTelemetry.ReportUnhandledException
+Microsoft.AspNetCore.Diagnostics.DiagnosticsTelemetry.ReportUnhandledException
+EventId: 1|Level: ERROR
+An unhandled exception has occurred while executing the request. System.ArgumentException: GenericArguments[0], 'Comabit.BL.Match.Dto.MatchItem', on 'System.Nullable`1[T] MaxInteger[T](System.Collections.Generic.IEnumerable`1[System.Nullable`1[T]])' violates the constraint of type 'T'.
+ ---> System.Security.VerificationException: Method System.Linq.Enumerable.MaxInteger: type argument 'Comabit.BL.Match.Dto.MatchItem' violates the constraint of type parameter 'T'.
+   at System.RuntimeMethodHandle.GetStubIfNeeded(RuntimeMethodHandleInternal method, RuntimeType declaringType, RuntimeType[] methodInstantiation)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   --- End of inner exception stack trace ---
+   at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   at AutoMapper.TypeDetails.<>c__DisplayClass28_1.<BuildPublicNoArgExtensionMethods>b__10(MethodInfo extensionMethod)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Enumerable.ConcatIterator`1.MoveNext()
+   at System.Linq.Enumerable.SelectManyIterator[TSource,TCollection,TResult](IEnumerable`1 source, Func`2 collectionSelector, Func`3 resultSelector)+MoveNext()
+   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   at System.Collections.Generic.HashSet`1.UnionWith(IEnumerable`1 other)
+   at System.Linq.Enumerable.UnionIterator`1.FillSet()
+   at System.Linq.Enumerable.UnionIterator`1.ToArray()
+   at AutoMapper.TypeDetails.BuildPublicNoArgExtensionMethods(IEnumerable`1 sourceExtensionMethodSearch)
+   at AutoMapper.TypeDetails..ctor(Type type, ProfileMap config)
+   at AutoMapper.ProfileMap.TypeDetailsFactory(Type type)
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.<>c__DisplayClass2_1.<.ctor>b__1()
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.GetOrAdd(TKey key)
+   at AutoMapper.ProfileMap.CreateTypeDetails(Type type)
+   at AutoMapper.Configuration.Conventions.NameSplitMember.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, IMemberConfiguration parent, Boolean isReverseMap)
+   at AutoMapper.Configuration.Conventions.MemberConfiguration.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.MapDestinationPropertyToSource(TypeDetails sourceTypeInfo, Type destType, Type destMemberType, String destMemberInfo, LinkedList`1 members, Boolean reverseNamingConventions)
+   at AutoMapper.TypeMapFactory.CreateTypeMap(Type sourceType, Type destinationType, ProfileMap options, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.BuildTypeMap(IConfigurationProvider configurationProvider, ITypeMapConfiguration config)
+   at AutoMapper.ProfileMap.Register(IConfigurationProvider configurationProvider)
+   at AutoMapper.MapperConfiguration.Seal()
+   at AutoMapper.MapperConfiguration..ctor(MapperConfigurationExpression configurationExpression)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method30(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+2024.08.18 14:28:36.718 ThreadId=13 Error Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncStateMachineBox`1.ExecutionContextCallback => <HandleExceptionAsync>d__3.MoveNext => DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+EventId: 7|Level: ERROR
+An exception occurred while calculating the database error page content. Skipping display of the database error page. Npgsql.PostgresException (0x80004005): 28000: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+   at Npgsql.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|194_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass41_0.<<Open>g__OpenAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.HttpContextDatabaseContextDetailsExtensions.GetContextDetailsAsync(HttpContext httpContext, Type dbcontextType, ILogger logger)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter.HandleExceptionAsync(ErrorContext errorContext, Func`2 next)
+  Exception data:
+    Severity: FATAL
+    SqlState: 28000
+    MessageText: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+    File: auth.c
+    Line: 605
+    Routine: ClientAuthentication
+
+2024.08.18 15:04:17.961 ThreadId=21 Error Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncMethodBuilderCore.Start => <Invoke>d__14.MoveNext => DiagnosticsTelemetry.ReportUnhandledException
+Microsoft.AspNetCore.Diagnostics.DiagnosticsTelemetry.ReportUnhandledException
+EventId: 1|Level: ERROR
+An unhandled exception has occurred while executing the request. System.ArgumentException: GenericArguments[0], 'Comabit.BL.Match.Dto.MatchItem', on 'System.Nullable`1[T] MaxInteger[T](System.Collections.Generic.IEnumerable`1[System.Nullable`1[T]])' violates the constraint of type 'T'.
+ ---> System.Security.VerificationException: Method System.Linq.Enumerable.MaxInteger: type argument 'Comabit.BL.Match.Dto.MatchItem' violates the constraint of type parameter 'T'.
+   at System.RuntimeMethodHandle.GetStubIfNeeded(RuntimeMethodHandleInternal method, RuntimeType declaringType, RuntimeType[] methodInstantiation)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   --- End of inner exception stack trace ---
+   at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   at AutoMapper.TypeDetails.<>c__DisplayClass28_1.<BuildPublicNoArgExtensionMethods>b__10(MethodInfo extensionMethod)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Enumerable.ConcatIterator`1.MoveNext()
+   at System.Linq.Enumerable.SelectManyIterator[TSource,TCollection,TResult](IEnumerable`1 source, Func`2 collectionSelector, Func`3 resultSelector)+MoveNext()
+   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   at System.Collections.Generic.HashSet`1.UnionWith(IEnumerable`1 other)
+   at System.Linq.Enumerable.UnionIterator`1.FillSet()
+   at System.Linq.Enumerable.UnionIterator`1.ToArray()
+   at AutoMapper.TypeDetails.BuildPublicNoArgExtensionMethods(IEnumerable`1 sourceExtensionMethodSearch)
+   at AutoMapper.TypeDetails..ctor(Type type, ProfileMap config)
+   at AutoMapper.ProfileMap.TypeDetailsFactory(Type type)
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.<>c__DisplayClass2_1.<.ctor>b__1()
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.GetOrAdd(TKey key)
+   at AutoMapper.ProfileMap.CreateTypeDetails(Type type)
+   at AutoMapper.Configuration.Conventions.NameSplitMember.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, IMemberConfiguration parent, Boolean isReverseMap)
+   at AutoMapper.Configuration.Conventions.MemberConfiguration.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.MapDestinationPropertyToSource(TypeDetails sourceTypeInfo, Type destType, Type destMemberType, String destMemberInfo, LinkedList`1 members, Boolean reverseNamingConventions)
+   at AutoMapper.TypeMapFactory.CreateTypeMap(Type sourceType, Type destinationType, ProfileMap options, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.BuildTypeMap(IConfigurationProvider configurationProvider, ITypeMapConfiguration config)
+   at AutoMapper.ProfileMap.Register(IConfigurationProvider configurationProvider)
+   at AutoMapper.MapperConfiguration.Seal()
+   at AutoMapper.MapperConfiguration..ctor(MapperConfigurationExpression configurationExpression)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method30(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+2024.08.18 15:04:18.646 ThreadId=23 Error Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncStateMachineBox`1.ExecutionContextCallback => <HandleExceptionAsync>d__3.MoveNext => DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+EventId: 7|Level: ERROR
+An exception occurred while calculating the database error page content. Skipping display of the database error page. Npgsql.PostgresException (0x80004005): 28000: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+   at Npgsql.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|194_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass41_0.<<Open>g__OpenAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.HttpContextDatabaseContextDetailsExtensions.GetContextDetailsAsync(HttpContext httpContext, Type dbcontextType, ILogger logger)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter.HandleExceptionAsync(ErrorContext errorContext, Func`2 next)
+  Exception data:
+    Severity: FATAL
+    SqlState: 28000
+    MessageText: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+    File: auth.c
+    Line: 605
+    Routine: ClientAuthentication
+
+2024.08.18 17:20:44.416 ThreadId=28 Error Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncMethodBuilderCore.Start => <Invoke>d__14.MoveNext => DiagnosticsTelemetry.ReportUnhandledException
+Microsoft.AspNetCore.Diagnostics.DiagnosticsTelemetry.ReportUnhandledException
+EventId: 1|Level: ERROR
+An unhandled exception has occurred while executing the request. System.ArgumentException: GenericArguments[0], 'Comabit.BL.Match.Dto.MatchItem', on 'System.Nullable`1[T] MaxInteger[T](System.Collections.Generic.IEnumerable`1[System.Nullable`1[T]])' violates the constraint of type 'T'.
+ ---> System.Security.VerificationException: Method System.Linq.Enumerable.MaxInteger: type argument 'Comabit.BL.Match.Dto.MatchItem' violates the constraint of type parameter 'T'.
+   at System.RuntimeMethodHandle.GetStubIfNeeded(RuntimeMethodHandleInternal method, RuntimeType declaringType, RuntimeType[] methodInstantiation)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   --- End of inner exception stack trace ---
+   at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   at AutoMapper.TypeDetails.<>c__DisplayClass28_1.<BuildPublicNoArgExtensionMethods>b__10(MethodInfo extensionMethod)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Enumerable.ConcatIterator`1.MoveNext()
+   at System.Linq.Enumerable.SelectManyIterator[TSource,TCollection,TResult](IEnumerable`1 source, Func`2 collectionSelector, Func`3 resultSelector)+MoveNext()
+   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   at System.Collections.Generic.HashSet`1.UnionWith(IEnumerable`1 other)
+   at System.Linq.Enumerable.UnionIterator`1.FillSet()
+   at System.Linq.Enumerable.UnionIterator`1.ToArray()
+   at AutoMapper.TypeDetails.BuildPublicNoArgExtensionMethods(IEnumerable`1 sourceExtensionMethodSearch)
+   at AutoMapper.TypeDetails..ctor(Type type, ProfileMap config)
+   at AutoMapper.ProfileMap.TypeDetailsFactory(Type type)
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.<>c__DisplayClass2_1.<.ctor>b__1()
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.GetOrAdd(TKey key)
+   at AutoMapper.ProfileMap.CreateTypeDetails(Type type)
+   at AutoMapper.Configuration.Conventions.NameSplitMember.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, IMemberConfiguration parent, Boolean isReverseMap)
+   at AutoMapper.Configuration.Conventions.MemberConfiguration.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.MapDestinationPropertyToSource(TypeDetails sourceTypeInfo, Type destType, Type destMemberType, String destMemberInfo, LinkedList`1 members, Boolean reverseNamingConventions)
+   at AutoMapper.TypeMapFactory.CreateTypeMap(Type sourceType, Type destinationType, ProfileMap options, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.BuildTypeMap(IConfigurationProvider configurationProvider, ITypeMapConfiguration config)
+   at AutoMapper.ProfileMap.Register(IConfigurationProvider configurationProvider)
+   at AutoMapper.MapperConfiguration.Seal()
+   at AutoMapper.MapperConfiguration..ctor(MapperConfigurationExpression configurationExpression)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method30(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+2024.08.18 17:20:45.126 ThreadId=31 Error Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncStateMachineBox`1.ExecutionContextCallback => <HandleExceptionAsync>d__3.MoveNext => DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+EventId: 7|Level: ERROR
+An exception occurred while calculating the database error page content. Skipping display of the database error page. Npgsql.PostgresException (0x80004005): 28000: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+   at Npgsql.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|194_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass41_0.<<Open>g__OpenAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.HttpContextDatabaseContextDetailsExtensions.GetContextDetailsAsync(HttpContext httpContext, Type dbcontextType, ILogger logger)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter.HandleExceptionAsync(ErrorContext errorContext, Func`2 next)
+  Exception data:
+    Severity: FATAL
+    SqlState: 28000
+    MessageText: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+    File: auth.c
+    Line: 605
+    Routine: ClientAuthentication
+
+2024.08.18 17:20:48.730 ThreadId=3 Error Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncMethodBuilderCore.Start => <Invoke>d__14.MoveNext => DiagnosticsTelemetry.ReportUnhandledException
+Microsoft.AspNetCore.Diagnostics.DiagnosticsTelemetry.ReportUnhandledException
+EventId: 1|Level: ERROR
+An unhandled exception has occurred while executing the request. System.ArgumentException: GenericArguments[0], 'Comabit.BL.Match.Dto.MatchItem', on 'System.Nullable`1[T] MaxInteger[T](System.Collections.Generic.IEnumerable`1[System.Nullable`1[T]])' violates the constraint of type 'T'.
+ ---> System.Security.VerificationException: Method System.Linq.Enumerable.MaxInteger: type argument 'Comabit.BL.Match.Dto.MatchItem' violates the constraint of type parameter 'T'.
+   at System.RuntimeMethodHandle.GetStubIfNeeded(RuntimeMethodHandleInternal method, RuntimeType declaringType, RuntimeType[] methodInstantiation)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   --- End of inner exception stack trace ---
+   at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   at AutoMapper.TypeDetails.<>c__DisplayClass28_1.<BuildPublicNoArgExtensionMethods>b__10(MethodInfo extensionMethod)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Enumerable.ConcatIterator`1.MoveNext()
+   at System.Linq.Enumerable.SelectManyIterator[TSource,TCollection,TResult](IEnumerable`1 source, Func`2 collectionSelector, Func`3 resultSelector)+MoveNext()
+   at System.Collections.Generic.HashSet`1.UnionWith(IEnumerable`1 other)
+   at System.Linq.Enumerable.UnionIterator`1.FillSet()
+   at System.Linq.Enumerable.UnionIterator`1.ToArray()
+   at AutoMapper.TypeDetails.BuildPublicNoArgExtensionMethods(IEnumerable`1 sourceExtensionMethodSearch)
+   at AutoMapper.TypeDetails..ctor(Type type, ProfileMap config)
+   at AutoMapper.ProfileMap.TypeDetailsFactory(Type type)
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.<>c__DisplayClass2_1.<.ctor>b__1()
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at AutoMapper.Configuration.Conventions.NameSplitMember.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, IMemberConfiguration parent, Boolean isReverseMap)
+   at AutoMapper.Configuration.Conventions.MemberConfiguration.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.MapDestinationPropertyToSource(TypeDetails sourceTypeInfo, Type destType, Type destMemberType, String destMemberInfo, LinkedList`1 members, Boolean reverseNamingConventions)
+   at AutoMapper.TypeMapFactory.CreateTypeMap(Type sourceType, Type destinationType, ProfileMap options, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.BuildTypeMap(IConfigurationProvider configurationProvider, ITypeMapConfiguration config)
+   at AutoMapper.ProfileMap.Register(IConfigurationProvider configurationProvider)
+   at AutoMapper.MapperConfiguration.Seal()
+   at AutoMapper.MapperConfiguration..ctor(MapperConfigurationExpression configurationExpression)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method30(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+2024.08.18 17:20:49.145 ThreadId=3 Error Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncStateMachineBox`1.ExecutionContextCallback => <HandleExceptionAsync>d__3.MoveNext => DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+EventId: 7|Level: ERROR
+An exception occurred while calculating the database error page content. Skipping display of the database error page. Npgsql.PostgresException (0x80004005): 28000: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+   at Npgsql.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|194_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass41_0.<<Open>g__OpenAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.HttpContextDatabaseContextDetailsExtensions.GetContextDetailsAsync(HttpContext httpContext, Type dbcontextType, ILogger logger)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter.HandleExceptionAsync(ErrorContext errorContext, Func`2 next)
+  Exception data:
+    Severity: FATAL
+    SqlState: 28000
+    MessageText: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+    File: auth.c
+    Line: 605
+    Routine: ClientAuthentication
+
+2024.08.18 17:21:10.816 ThreadId=32 Error Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncMethodBuilderCore.Start => <Invoke>d__14.MoveNext => DiagnosticsTelemetry.ReportUnhandledException
+Microsoft.AspNetCore.Diagnostics.DiagnosticsTelemetry.ReportUnhandledException
+EventId: 1|Level: ERROR
+An unhandled exception has occurred while executing the request. System.ArgumentException: GenericArguments[0], 'Comabit.BL.Match.Dto.MatchItem', on 'System.Nullable`1[T] MaxInteger[T](System.Collections.Generic.IEnumerable`1[System.Nullable`1[T]])' violates the constraint of type 'T'.
+ ---> System.Security.VerificationException: Method System.Linq.Enumerable.MaxInteger: type argument 'Comabit.BL.Match.Dto.MatchItem' violates the constraint of type parameter 'T'.
+   at System.RuntimeMethodHandle.GetStubIfNeeded(RuntimeMethodHandleInternal method, RuntimeType declaringType, RuntimeType[] methodInstantiation)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   --- End of inner exception stack trace ---
+   at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   at AutoMapper.TypeDetails.<>c__DisplayClass28_1.<BuildPublicNoArgExtensionMethods>b__10(MethodInfo extensionMethod)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Enumerable.ConcatIterator`1.MoveNext()
+   at System.Linq.Enumerable.SelectManyIterator[TSource,TCollection,TResult](IEnumerable`1 source, Func`2 collectionSelector, Func`3 resultSelector)+MoveNext()
+   at System.Collections.Generic.HashSet`1.UnionWith(IEnumerable`1 other)
+   at System.Linq.Enumerable.UnionIterator`1.FillSet()
+   at System.Linq.Enumerable.UnionIterator`1.ToArray()
+   at AutoMapper.TypeDetails.BuildPublicNoArgExtensionMethods(IEnumerable`1 sourceExtensionMethodSearch)
+   at AutoMapper.TypeDetails..ctor(Type type, ProfileMap config)
+   at AutoMapper.ProfileMap.TypeDetailsFactory(Type type)
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.<>c__DisplayClass2_1.<.ctor>b__1()
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at AutoMapper.Configuration.Conventions.NameSplitMember.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, IMemberConfiguration parent, Boolean isReverseMap)
+   at AutoMapper.Configuration.Conventions.MemberConfiguration.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.MapDestinationPropertyToSource(TypeDetails sourceTypeInfo, Type destType, Type destMemberType, String destMemberInfo, LinkedList`1 members, Boolean reverseNamingConventions)
+   at AutoMapper.TypeMapFactory.CreateTypeMap(Type sourceType, Type destinationType, ProfileMap options, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.BuildTypeMap(IConfigurationProvider configurationProvider, ITypeMapConfiguration config)
+   at AutoMapper.ProfileMap.Register(IConfigurationProvider configurationProvider)
+   at AutoMapper.MapperConfiguration.Seal()
+   at AutoMapper.MapperConfiguration..ctor(MapperConfigurationExpression configurationExpression)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method30(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+2024.08.18 17:21:11.266 ThreadId=32 Error Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncStateMachineBox`1.ExecutionContextCallback => <HandleExceptionAsync>d__3.MoveNext => DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+EventId: 7|Level: ERROR
+An exception occurred while calculating the database error page content. Skipping display of the database error page. Npgsql.PostgresException (0x80004005): 28000: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+   at Npgsql.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|194_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass41_0.<<Open>g__OpenAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.HttpContextDatabaseContextDetailsExtensions.GetContextDetailsAsync(HttpContext httpContext, Type dbcontextType, ILogger logger)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter.HandleExceptionAsync(ErrorContext errorContext, Func`2 next)
+  Exception data:
+    Severity: FATAL
+    SqlState: 28000
+    MessageText: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+    File: auth.c
+    Line: 605
+    Routine: ClientAuthentication
+
+2024.08.18 22:07:22.274 ThreadId=15 Error Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncMethodBuilderCore.Start => <Invoke>d__14.MoveNext => DiagnosticsTelemetry.ReportUnhandledException
+Microsoft.AspNetCore.Diagnostics.DiagnosticsTelemetry.ReportUnhandledException
+EventId: 1|Level: ERROR
+An unhandled exception has occurred while executing the request. System.ArgumentException: GenericArguments[0], 'Comabit.BL.Match.Dto.MatchItem', on 'System.Nullable`1[T] MaxInteger[T](System.Collections.Generic.IEnumerable`1[System.Nullable`1[T]])' violates the constraint of type 'T'.
+ ---> System.Security.VerificationException: Method System.Linq.Enumerable.MaxInteger: type argument 'Comabit.BL.Match.Dto.MatchItem' violates the constraint of type parameter 'T'.
+   at System.RuntimeMethodHandle.GetStubIfNeeded(RuntimeMethodHandleInternal method, RuntimeType declaringType, RuntimeType[] methodInstantiation)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   --- End of inner exception stack trace ---
+   at System.RuntimeType.ValidateGenericArguments(MemberInfo definition, RuntimeType[] genericArguments, Exception e)
+   at System.Reflection.RuntimeMethodInfo.MakeGenericMethod(Type[] methodInstantiation)
+   at AutoMapper.TypeDetails.<>c__DisplayClass28_1.<BuildPublicNoArgExtensionMethods>b__10(MethodInfo extensionMethod)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Enumerable.ConcatIterator`1.MoveNext()
+   at System.Linq.Enumerable.SelectManyIterator[TSource,TCollection,TResult](IEnumerable`1 source, Func`2 collectionSelector, Func`3 resultSelector)+MoveNext()
+   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   at System.Collections.Generic.HashSet`1.UnionWith(IEnumerable`1 other)
+   at System.Linq.Enumerable.UnionIterator`1.FillSet()
+   at System.Linq.Enumerable.UnionIterator`1.ToArray()
+   at AutoMapper.TypeDetails.BuildPublicNoArgExtensionMethods(IEnumerable`1 sourceExtensionMethodSearch)
+   at AutoMapper.TypeDetails..ctor(Type type, ProfileMap config)
+   at AutoMapper.ProfileMap.TypeDetailsFactory(Type type)
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.<>c__DisplayClass2_1.<.ctor>b__1()
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at AutoMapper.Internal.LockingConcurrentDictionary`2.GetOrAdd(TKey key)
+   at AutoMapper.ProfileMap.CreateTypeDetails(Type type)
+   at AutoMapper.Configuration.Conventions.NameSplitMember.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, IMemberConfiguration parent, Boolean isReverseMap)
+   at AutoMapper.Configuration.Conventions.MemberConfiguration.MapDestinationPropertyToSource(ProfileMap options, TypeDetails sourceType, Type destType, Type destMemberType, String nameToSearch, LinkedList`1 resolvers, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.MapDestinationPropertyToSource(TypeDetails sourceTypeInfo, Type destType, Type destMemberType, String destMemberInfo, LinkedList`1 members, Boolean reverseNamingConventions)
+   at AutoMapper.TypeMapFactory.CreateTypeMap(Type sourceType, Type destinationType, ProfileMap options, Boolean isReverseMap)
+   at AutoMapper.ProfileMap.BuildTypeMap(IConfigurationProvider configurationProvider, ITypeMapConfiguration config)
+   at AutoMapper.ProfileMap.Register(IConfigurationProvider configurationProvider)
+   at AutoMapper.MapperConfiguration.Seal()
+   at AutoMapper.MapperConfiguration..ctor(MapperConfigurationExpression configurationExpression)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_2(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.<>c.<AddAutoMapperClasses>b__12_3(IServiceProvider sp)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method30(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+2024.08.18 22:07:23.096 ThreadId=13 Error Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter
+ApplicationId: Comabit
+REQUEST: GET https://localhost/Account/Login
+REMOTE_ADDR: ::1
+CodeSourceInformation: AsyncStateMachineBox`1.ExecutionContextCallback => <HandleExceptionAsync>d__3.MoveNext => DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DiagnosticsEntityFrameworkCoreLoggerExtensions.DatabaseErrorPageMiddlewareException
+EventId: 7|Level: ERROR
+An exception occurred while calculating the database error page content. Skipping display of the database error page. Npgsql.PostgresException (0x80004005): 28000: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+   at Npgsql.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|194_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass41_0.<<Open>g__OpenAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.HttpContextDatabaseContextDetailsExtensions.GetContextDetailsAsync(HttpContext httpContext, Type dbcontextType, ILogger logger)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseDeveloperPageExceptionFilter.HandleExceptionAsync(ErrorContext errorContext, Func`2 next)
+  Exception data:
+    Severity: FATAL
+    SqlState: 28000
+    MessageText: no pg_hba.conf entry for host "78.3.160.187", user "comabitsqladmin", database "baustoffmanager-test", SSL on
+    File: auth.c
+    Line: 605
+    Routine: ClientAuthentication
+

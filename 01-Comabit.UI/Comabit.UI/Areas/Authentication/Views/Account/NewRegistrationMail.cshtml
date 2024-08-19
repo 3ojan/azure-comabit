@@ -1,0 +1,26 @@
+﻿@model Comabit.UI.Areas.Admin.Models.CompanyViewModel
+
+@{
+    ViewBag.Title = "Anmeldung";
+    Layout = "";
+}
+
+<div class="">
+    <h1>Combait Baustoffmanager Passwort zurücksetzen</h1>
+
+    <div class="content">
+        Hallo,<br />
+        <br />
+        es hat sich soebene die Firma @Model.Name erfolgreich zum Baustoffmanager Registierung.<br />
+        <br />
+        Über folgenden Link kannst Du die Registrierung/Firma einsehen und direkt überprüfen:<br />
+        <br />
+        <a href="@Url.Action("Details", "Company", new { Area = "Admin", Guid = Model.Id })">Zur Registrierung / Firma</a><br />
+        <br />
+        Beste Grüße<br />
+        Dein Comabit Baustoffmanager<br />
+        <br />
+        <br />
+        Diese Nachricht wurde automatisch generiert. - @DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss")
+    </div>
+</div>

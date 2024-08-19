@@ -1,0 +1,53 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Baustoffmanager";
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+}
+
+<div class="content borderless">
+    <div class="row">
+        <div class="col-12 text-end">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flex vh-50 header">
+            <a href="@Url.Action("Index", "Home")"><img src="~/img/layout/logo.svg" class="logo" /></a>
+            <a href="@Url.Action("Login", "Account", new { area = "Authentication" })" class="login">Login</a>
+            <img src="~/img/layout/bsm_sign.svg" class="sign" />
+            <div class="p-2 flex-fill bd-highlight bg-buyer"></div>
+            <div class="p-2 flex-fill bd-highlight bg-seller"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flex bd-highlight vh-50">
+            <div class="p-2 flex-fill vw-50 bd-highlight bg-content-buyer">
+                <div class="content-buyer mx-auto">
+                    <h1>Einkäufer werden</h1>
+                    <ul>
+                        <li>Baustoffe einfach</li>
+                        <li>Justo duo dolores et ea rebum</li>
+                        <li>no sea takimata sanctus est Lorem</li>
+                    </ul>
+                    <p>
+                        <a class="btn btn-secondary" href="@Url.Action("RegisterBuyer", "Account")">Als Einkäufer Registrieren</a>
+                    </p>
+                </div>
+            </div>
+            <div class="p-2 flex-fill vw-50 bd-highlight bg-content-seller">
+                <div class="content-seller mx-auto">
+                    <h1>Verkäufer werden</h1>
+                    <ul>
+                        <li>Lorem ipsum dolor sit amet, consetetur sadipscing</li>
+                        <li>Justo duo dolores et ea rebum</li>
+                        <li>no sea takimata sanctus est Lorem</li>
+                    </ul>
+                    <p>
+                        <a class="btn btn-primary" href="@Url.Action("RegisterSeller", "Account")">Als Verkäufer registrieren</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

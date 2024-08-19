@@ -1,0 +1,39 @@
+﻿@model EditViewModel
+@using Comabit.UI.Areas.Buyer.Models.Inquiry;
+
+@{
+    ViewBag.Title = "Anfrage erstellen";
+}
+
+<h1 class="h1 mb-1">Neue Anfrage</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Project")">Projekte</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Inquiry", new { Area = Roles.Buyer, SelectedProjectId = Model.ProjectId })">@Model.Project.ProjectName</a></li>
+        <li class="breadcrumb-item active">Neue Anfrage erstellen</li>
+
+    </ol>
+</nav>
+
+@using (Html.BeginForm("Create", "Inquiry", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "", role = "form", enctype = "multipart/form-data", id = "InquiryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ProjectId)
+
+    <div class="card">
+        <div class="card-header">
+            @await Html.PartialAsync("_ProjectDetail", Model.Project)
+        </div>
+        <div class="card-body">
+            <div class="inquiry-form">
+                @await Html.PartialAsync("_InquiryForm", Model)
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @(await Html.PartialAsync("_FormScript", Model))
+}

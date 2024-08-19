@@ -1,0 +1,43 @@
+﻿@model Comabit.UI.Models.Portfolio.CategoryViewModel
+
+@{
+    bool opened = (Model.PortfolioSubCategories != null && Model.PortfolioSubCategories.Any(c => c.Checked)
+        || !string.IsNullOrEmpty(Model.AdditionalPortfolioCategoryTagsAsString) || Model.Checked);
+}
+
+<div class="col-6">
+    <div class="accordion">
+        <div class="d-flex justify-content-between">
+            <div class="form-check category">
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.Name)
+
+                @Html.CheckBoxFor(m => m.Checked, new { @class = "form-check-input category mt-0 me-3 trigger-matches-preview", style = "margin-left: -10px;" })
+                <label class="form-check-label" for="@Html.IdFor(m => m.Checked)">
+                    @Model.Name
+                </label>
+            </div>
+
+            @if (Model.PortfolioSubCategories != null && Model.PortfolioSubCategories.Any())
+            {
+                <div class="custom-accordion-button collapsed @(opened ? "show" : "")" data-bs-toggle="collapse" data-bs-target=".PortfolioCategory-@Model.Id.ToString("N")">
+                    &nbsp;
+                </div>
+            }
+        </div>
+        @if (Model.PortfolioSubCategories != null && Model.PortfolioSubCategories.Any())
+        {
+            <div class="PortfolioCategory-@Model.Id.ToString("N") accordion-collapse collapse @(opened ? "show" : "")">
+                <div class="accordion-body">
+                    @Html.EditorFor(m => m.PortfolioSubCategories)
+                </div>
+            </div>
+        }
+
+        @if (Model.PortfolioArea != null && Model.PortfolioArea.ShowAdditionalTags) {  
+            <div class="PortfolioCategory-@Model.Id.ToString("N") accordion-collapse collapse @(opened ? "show" : "") mb-3">
+                @Html.TextAreaFor(m => m.AdditionalPortfolioCategoryTagsAsString, new { @class = "form-control trigger-matches-preview", placeholder = "Sonstiges zu " + Model.Name })
+            </div>
+        }
+    </div>
+</div>

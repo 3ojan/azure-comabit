@@ -1,0 +1,125 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.RegisterBaseViewModel
+
+@{
+    ViewBag.Title = "Anmeldung";
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+}
+
+<div class="col-lg-8 col-md-10 mx-auto mt-5">
+    @using (Html.BeginForm("RegisterBuyer", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "form-signin", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="header text-center">Registrierung als Einkäufer</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+            <div class="card-body">
+                @Html.ValidationSummary(true)
+
+                <p>
+                    <h3>Firmen-Daten</h3>
+                </p>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Company, new { @class = "form-control w-100", @placeholder = "Firma*" })
+                            @Html.ValidationMessageFor(m => m.Company, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Street, new { @class = "form-control w-100", @placeholder = "Straße*" })
+                            @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control w-100", @placeholder = "PLZ*" })
+                            @Html.ValidationMessageFor(m => m.PostalCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control w-100", @placeholder = "Ort*" })
+                            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.BusinessTaxId, new { @class = "form-control w-100", @placeholder = "Geschäftssteuer-ID" })
+                            @Html.ValidationMessageFor(m => m.BusinessTaxId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.UstId, new { @class = "form-control w-100", @placeholder = "Ust-ID" })
+                            @Html.ValidationMessageFor(m => m.UstId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <p>
+                    <h3>Benutzer-Daten</h3>
+                </p>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.ContactPersonFirstname, new { @class = "form-control w-100", @placeholder = "Vorname der Kontaktperson*" })
+                            @Html.ValidationMessageFor(m => m.ContactPersonFirstname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.ContactPersonLastname, new { @class = "form-control w-100", @placeholder = "Nachname der Kontaktperson*" })
+                            @Html.ValidationMessageFor(m => m.ContactPersonLastname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.EMail, new { @class = "form-control w-100", @placeholder = "E-Mail*" })
+                            @Html.ValidationMessageFor(m => m.EMail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control w-100", @placeholder = "Passwort*", @type = "password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="input-group">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control w-100", @placeholder = "Passwort wiedeholen*", @type = "password" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p>
+                    <button class="btn btn-lg btn-primary btn-block me-3" type="submit">Jetzt anmelden</button> <a href="@Url.Action("Index", "Home", new { area = "" })" class="btn-link">Zurück</a>
+                </p>
+                <small>* Pflichtfelder</small>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,36 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.RoleViewModel
+
+@{
+    ViewBag.Title = "Benutzerrolle bearbeiten";
+}
+
+<div class="flex-grow-1">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">@ViewBag.Title</h5>
+            </div>
+            <div class="card-body">
+
+                @Html.LabelFor(model => model.Name, "Name")
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+
+                @Html.LabelFor(model => model.Description, "Beschreibung")
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="card-footer ">
+                <button type="submit" class="btn btn-primary">Speichern</button>
+                @Html.ActionLink("Zurück zur Übersicht", "Index", null, new { @class = "btn btn-link" })
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,22 @@
+﻿@model Comabit.DL.ApplicationUser
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Sind Sie sicher, dass Sie den Benutzer <strong>@Model.FullName (@Model.UserName)</strong> löschen möchten?</h3>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <p>
+                    <input type="submit" value="Ja, Löschen" class="btn btn-danger" />
+                    
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        @Html.ActionLink("Nein, zurück zur Übersicht", "Index", null, new { @class = "btn btn-link" })
+                    }
+                </p>
+            }
+        </div>
+    </div>
+</div>

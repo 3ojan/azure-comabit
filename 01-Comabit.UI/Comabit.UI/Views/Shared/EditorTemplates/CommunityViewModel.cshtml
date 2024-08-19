@@ -1,0 +1,8 @@
+﻿@model CommunityViewModel
+
+@using Comabit.UI.Areas.Authentication.Models.Geo;
+
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.Name)
+
+<h4><span class="position-relative mb-2 me-2 badge bg-secondary">@Model.Name<span data-id="@Model.Id" class="geo-remove-community position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">x</span></span></h4>

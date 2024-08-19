@@ -1,0 +1,24 @@
+﻿@model ICollection<MatchViewModel>
+
+@using Comabit.UI.Models.Match;
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Firma</th>
+            <th>Kategorie</th>
+            <th>Anf.-Nr.</th>
+            <th>Bieterfrist</th>
+            <th>Matchdatum</th>
+            <th>Status</th>
+            <th>MatchScore</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MatchViewModel match in Model)
+        {
+            @(await Html.PartialAsync("_Match", match))
+        }
+    </tbody>
+</table>

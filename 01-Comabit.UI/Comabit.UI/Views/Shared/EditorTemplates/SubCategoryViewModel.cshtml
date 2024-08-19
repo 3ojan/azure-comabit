@@ -1,0 +1,11 @@
+﻿@model Comabit.UI.Models.Portfolio.SubCategoryViewModel
+
+<div class="form-check">
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Name)
+
+    @Html.CheckBoxFor(m => m.Checked, new { @class = "form-check-input trigger-matches-preview" })
+    <label class="form-check-label" for="@Html.IdFor(m => m.Checked)">
+        @Model.Name
+    </label>
+</div>

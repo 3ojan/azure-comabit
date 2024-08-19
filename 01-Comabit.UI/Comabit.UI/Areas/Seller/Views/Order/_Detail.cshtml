@@ -1,0 +1,102 @@
+﻿@model MatchViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.BL.Helpers.Enumerations;
+
+@{
+    ViewBag.Title = "Angebot Details";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewBag.Title</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body m-3">
+    <table class="table">
+        <tr>
+            <th>Firma</th>
+            <td>
+                @Model.Inquiry.Project.Buyer.Name <br />
+                <small>
+                    @Model.Inquiry.Project.Buyer.Street<br />
+                    @Model.Inquiry.Project.Buyer.PostalCode @Model.Inquiry.Project.Buyer.City
+                </small>
+            </td>
+
+            <th>Ansprechpartner</th>
+            <td>
+                @Model.Inquiry.Project.ContactClerk<br />
+                @Model.Inquiry.Project.ContactEmail<br />
+            </td>
+        </tr>
+        <tr>
+            <th>Anf.-Nr.</th>
+            <td>@Model.Inquiry.InquiryNumber</td>
+
+            <th>Bieterfrist</th>
+            <td>
+                @Model.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+                <small>@Model.Inquiry.DeadlineInfo</small>
+            </td>
+        </tr>
+        <tr>
+            <th>Kategorie</th>
+            <td>
+                @foreach (var group in Model.Inquiry.SelectedPortfolios.GroupBy(s => s.Key))
+                {
+                    <strong>@group.Key -</strong>
+
+                    foreach (var portfolio in group)
+                    {
+                        <strong>@portfolio.Value</strong><br />
+                    }
+
+                    <br />
+                }
+            </td>
+
+            <th>Lieferangaben</th>
+            <td>
+                <small>
+                    @Model.Inquiry.DeliveryStreet<br />
+                    @Model.Inquiry.DeliveryPostalCode @Model.Inquiry.DeliveryCity<br />
+                    @Model.Inquiry.DeliveryDate.ToString("dd.MM.yyyy HH:mm")<br />
+                    @Model.Inquiry.DeliveryInfo
+                </small>
+            </td>
+        </tr>
+        <tr>
+            <th>Anfrage-Dokumente</th>
+            <td>
+                @foreach (var file in Model.Inquiry.Files)
+                {
+                    <a class="link" href="@Url.Action("DownloadFile", "File", new {  Area = "", id = file.Id })">@file.FileName</a><br />
+                }
+            </td>
+            <th>Anfrage</th>
+            <td colspan="3">
+                <small>
+                    @Model.Inquiry.Notes
+                </small>
+            </td>
+        </tr>
+        <tr>
+            <th>Angebot</th>
+            <td>
+                @if (Model.CurrentOffer != null)
+                {
+                    <a class="link" href="@Url.Action("DownloadFile", "File", new {  Area = "", id = Model.CurrentOffer.FileId })">@Model.CurrentOffer.File.FileName</a>
+                    <br />
+                }
+            </td>
+            <td colspan="3">
+                <small>
+                    @Model.CurrentOffer.Text
+                </small>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+</div>

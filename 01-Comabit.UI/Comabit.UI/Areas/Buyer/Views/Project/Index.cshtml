@@ -1,0 +1,113 @@
+﻿@model List<ProjectViewModel>
+@using Comabit.UI.Models.Match;
+
+@{
+    ViewBag.Title = "Projekt Übersicht";
+}
+
+<h1 class="h1 mb-1">Alle Projekte</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Projekte</li>
+    </ol>
+</nav>
+
+<div class="tab">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab" role="tab" aria-selected="true">Laufende Projekte</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab" role="tab" aria-selected="false">Beendete Projekte</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab-1" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-header">
+                        <a href="@Url.Action("Create")" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Neues Projekt</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Projektname</th>
+                                    <th scope="col">erstellt</th>
+                                    <th scope="col">laufende Anfragen</th>
+                                    <th scope="col">Ansprechpartner</th>
+                                    <th scope="col">Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (ProjectViewModel item in Model.Where(p => p.IsActive).OrderByDescending(p => p.CreatedAt).ToList())
+                                    {
+                                        <tr class="cursor-pointer tr-link" data-href="@Url.Action("Index", "Inquiry", new { SelectedProjectId = item.Id })">
+                                            <td>@item.ProjectName</td>
+                                            <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                                            <td>@item.Inquiries.Count()</td>
+                                            <td>
+                                                <small>
+                                                    @item.ContactClerk<br />
+                                                    @item.ContactEmail
+                                                </small>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                                        Aktion
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="@Url.Action("Create", "Inquiry", new { projectId = item.Id })">Neue Anfrage</a></li>
+                                                        <li><a class="dropdown-item" href="@Url.Action("Index", "Inquiry", new { SelectedProjectId = item.Id })">Anfragen ansehen</a></li>
+                                                        <li><a class="dropdown-item" href="@Url.Action("Edit", "Project", new { Area = Roles.Buyer, id = item.Id })">Projekt bearbeiten</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab-2" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Projektname</th>
+                                    <th scope="col">angelegt am</th>
+                                    <th scope="col">laufende Anfragen</th>
+                                    <th scope="col">Ansprechpartner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (ProjectViewModel item in Model.Where(p => !p.IsActive).ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ProjectName</td>
+                                            <td>@item.CreatedAt.ToString("dd.MM.yyyy")</td>
+                                            <td>@item.Inquiries.Count()</td>
+                                            <td>
+
+                                                <small>
+                                                    @item.ContactClerk<br />
+                                                    @item.ContactEmail
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

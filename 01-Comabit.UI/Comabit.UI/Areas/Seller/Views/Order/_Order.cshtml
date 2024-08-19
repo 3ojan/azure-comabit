@@ -1,0 +1,54 @@
+﻿@model MatchViewModel
+
+@using Comabit.UI.Models.Match;
+
+<tr>
+    <td>@Model.Inquiry.Project.Buyer.Name</td>
+    <td>@Model.Inquiry.SelectedPortfolios.FirstOrDefault()</td>
+    <td>@Model.Inquiry.InquiryNumber</td>
+    <td>
+        @Model.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+        <small>@Model.Inquiry.DeadlineInfo</small>
+    </td>
+    <td>
+        @Model.Inquiry.DeliveryDate.ToString("dd.MM.yyyy")<br />
+        <small>@Model.Inquiry.DeliveryInfo</small><br />
+        <small>
+            @Model.Inquiry.DeliveryStreet<br />
+            @Model.Inquiry.DeliveryPostalCode @Model.Inquiry.DeliveryCity<br />
+        </small>
+    </td>
+    <td>
+        @Model.State.GetDescription() <br />
+        <small>(@Model.UpdatedAt.ToString("dd.MM.yyyy HH:mm") Uhr)</small>
+    </td>
+    <td>
+        @foreach (var file in Model.Inquiry.Files)
+        {
+            <a class="" href="@Url.Action("DownloadFile", "File", new { id = file.FileName })" title="@file.FileName"><i class="far fa-file-pdf text-lg"></i></a><br />
+        }
+    </td>
+    <td>
+        @{
+            var offer = Model.Offers.OrderByDescending(o => o.CreatedAt).FirstOrDefault();
+        }
+
+        @if (offer != null && offer.File != null)
+        {
+            <a class="" href="@Url.Action("DownloadFile", "File", new { id = offer.FileId })" title="@offer.File.FileName"><i class="far fa-file-pdf text-lg"></i></a>
+        }
+
+    </td>
+    <td>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+    <td>@Model.ScoreBadge</td>
+    <td class="text-end">
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Aktion
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item detail" href="@Url.Action("Detail", "Offer", new { id = Model.Id })">Details</a></li>
+            </ul>
+        </div>
+    </td>
+</tr>

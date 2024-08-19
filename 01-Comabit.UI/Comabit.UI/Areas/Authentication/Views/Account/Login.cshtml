@@ -1,0 +1,54 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Anmeldung";
+
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+}
+
+<div class="col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto d-table h-100">
+    <div class="d-table-cell align-middle">
+
+        <div class="text-center mt-4">
+            <p class="lead">
+                Bitte melden Sie sich an, um fortzufahren.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="m-sm-4">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "form-signin", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.EMail, "E-Mail", new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.EMail, new { @class = "form-control form-control-lg", @placeholder = "E-Mail", @autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.EMail)
+                        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Password, "Passwort", new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-control-lg", @placeholder = "Passwort", @type = "password", @autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <small>
+                                @Html.ActionLink("Passwort vergessen?", "ForgotPassword")
+                            </small>
+                        </div>
+                        <div>
+                            <label class="form-check">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                                <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
+                                <span class="form-check-label">
+                                    Angemeldet bleiben
+                                </span>
+                            </label>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-lg btn-primary">Anmelden</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

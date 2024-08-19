@@ -1,0 +1,22 @@
+﻿@model ProjectViewModel
+@using Comabit.UI.Models.Match;
+
+<div class="row mb-3">
+    <div class="col col-6">
+        <strong>@Model.ProjectName</strong><br />
+        @(Model.Street), @Model.PostalCode @Model.City
+    </div>
+
+    <div class="col">
+        <small>Ansprechpartner</small><br />
+        @Model.ContactClerk
+    </div>
+
+    <div class="col">
+        <small>E-Mail</small><br />
+        @Model.ContactEmail
+    </div>
+</div>
+
+<a href="@Url.Action("Create", "Inquiry", new { Area = Roles.Buyer, projectId = Model.Id })" class="btn btn-primary">Anfrage für Projekt anlegen</a>
+<a href="@Url.Action("Index")" class="btn btn-link">Zurück zur Übersicht</a>

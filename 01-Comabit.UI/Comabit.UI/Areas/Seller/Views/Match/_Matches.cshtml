@@ -1,0 +1,26 @@
+﻿@model ICollection<MatchViewModel>
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+@using Comabit.BL.Helpers.Enumerations;
+
+<table class="table revoked-matches">
+    <thead>
+        <tr>
+            <th>BSM-ID</th>
+            <th>Firma</th>
+            <th>Kategorie</th>
+            <th>Eingangsdatum</th>
+            <th>Bieterfrist</th>
+            <th>MatchScore <i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Übereinstimmung Anfrage-Bedarf mit Ihrem Portfolio"></i></th>
+            <th>Dokumente / Bemerkungen</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MatchViewModel match in Model)
+        {
+            @(await Html.PartialAsync("_Match", match))
+        }
+    </tbody>
+</table>

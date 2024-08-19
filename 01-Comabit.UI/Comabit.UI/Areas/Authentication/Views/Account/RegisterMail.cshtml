@@ -1,0 +1,33 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.RegisterMailViewModel
+
+@{
+    ViewBag.Title = "Anmeldung";
+    Layout = "";
+}
+
+<div class="">
+    <h1>Combait Baustoffmanager Registrierung</h1>
+
+    <div class="content">
+        <strong>Hallo @Model.FullName,</strong><br />
+        <br />
+        Sie haben sich zum Comabit Baustoffmanager registriert.<br />
+        <br />
+        Mit diesem Link bestätigen Sie Ihre Registrierung:<br />
+        <br />
+        <a href="@Model.CallbackUrl">Jetzt die Registrierung bestätigen</a><br />
+        <br />
+        <strong>Zusätzlich wird Ihre Registrierung manuell geprüft um Betrugsversuche zu verhindern.</strong><br />
+        <br />
+
+        @*@if (!string.IsNullOrEmpty(Model.ApplicationUser.UstId + Model.ApplicationUser.BusinessTaxId))
+        {
+            <strong>Die Steuer-Nr./Ust-ID, muss noch nachgereicht werden. </strong><br />
+            <br />
+        }*@
+
+        Mit freundlichen Grüßen<br />
+        <br />
+        Ihr Comabit Team
+    </div>
+</div>

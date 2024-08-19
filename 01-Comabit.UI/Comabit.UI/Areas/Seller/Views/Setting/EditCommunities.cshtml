@@ -1,0 +1,92 @@
+﻿@model CommunitiesEditViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Settings;
+@using Comabit.UI.Areas.Authentication.Models.Geo;
+
+@{
+    ViewBag.Title = "Vertriebsgebiet bearbeiten";
+}
+
+<h1 class="h1 mb-1">Meine Vertriebsgebiete</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Vertriebsgebiete bearbeiten</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-12">
+        @using (Html.BeginForm())
+        {
+            <div class="card">
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.CompanyId)
+
+                    <div class="geo">
+                        @Html.HiddenFor(m => m.NewCommunityId)
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                @Html.DropDownListFor(m => m.SelectedState, new SelectList(Model.States, "Id", "Name"), "Bundesland wählen", new { @class = "form-select select2 geo-state" })
+                            </div>
+                            <div class="col-6 geo-community-container">
+                                @(await Html.PartialAsync("_SellerGeoSelection", new List<CommunityViewModel>()))
+                            </div>
+                        </div>
+
+                        <div class="d-flex geo-selected-communities d-flex flex-wrap">
+                            @(await Html.PartialAsync("_SellerCommunitiesEditor", Model))
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    @Html.ValidationSummary(true)
+                    <button class="btn btn-primary btn-block" type="submit">Speichern</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("body").on("change", ".geo-state", function () {
+                $.ajax({
+                    url: '@Url.Action("GetCommunitiesForState", "Geo", new { Area = "" })',
+                    type: 'GET',
+                    data: {
+                        id: $(this).val(),
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $(".geo-community-container").html(data.html);
+                    },
+                    error: function (request, error) {
+                        alert("Request: " + JSON.stringify(request));
+                    }
+                });
+            });
+
+        $("body").on("change", ".geo-community", function () {
+                $("#@Html.IdFor(m => m.NewCommunityId)").val($(this).val());
+
+                var formGeo = $("form", document);
+                var dataJson = formGeo.serializeObject();
+
+                $.ajax({
+                    url: "@Url.Action("AddCommunity")",
+                    type: 'POST',
+                    data: dataJson,
+                    success: function (result) {
+                        $('.geo-selected-communities').html(result.html);
+                    },
+                    error: function (result) {
+                        $('.geo-selected-communities').html('Es ist ein Fehler aufgetreten.');
+                    }
+                });
+            });
+    </script>
+}

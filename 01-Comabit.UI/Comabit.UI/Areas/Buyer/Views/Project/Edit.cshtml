@@ -1,0 +1,30 @@
+﻿@model CreateEditViewModel
+@using Comabit.UI.Areas.Buyer.Models.Project;
+
+@{
+    ViewBag.Title = "Projekt bearbeiten";
+}
+
+<h1 class="h1 mb-1">@Model.ProjectName</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Project")">Projekte</a></li>
+        <li class="breadcrumb-item active">Projekt bearbeiten</li>
+    </ol>
+</nav>
+
+<div class="flex-grow-1">
+    @using (Html.BeginForm("Edit", "Project", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "form-signin", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="card">
+            <div class="card-body">
+                @await Html.PartialAsync("_ProjectForm", Model)
+            </div>
+        </div>
+    }
+</div>

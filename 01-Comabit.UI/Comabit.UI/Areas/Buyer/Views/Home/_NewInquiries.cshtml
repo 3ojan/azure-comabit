@@ -1,0 +1,81 @@
+﻿@model ICollection<InquiryViewModel>
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+
+<table class="table table-hover my-0">
+    <thead>
+        <tr>
+            <th>Projekt</th>
+            <th>Nummer</th>
+            <th>Anfrage gestellt</th>
+            <th>Bieterfrist</th>
+            <th>Matches</th>
+            <th>Angebote</th>
+            <th>Status</th>
+            <th>Zuständig</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inquiry in Model)
+        {
+        <tr>
+            <td>@inquiry.Project.ProjectName</td>
+            <td>@inquiry.InquiryNumber</td>
+            <td>@inquiry.CreatedAt.ToString("dd.MM.yyyy hh:mm")</td>
+            <td>@inquiry.Deadline.ToString("dd.MM.yyyy hh:mm")</td>
+            <td>@inquiry.Matches.Count()</td>
+            <td>@this.RetrieveCountOffers(inquiry.Matches)</td>
+            <td>
+                @if (inquiry.IsPublished)
+                {
+                    <span class="badge badge-success-light">veröffentlicht</span>
+                    <br />
+                    <small class="text-sm">@inquiry.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr</small>
+                }
+                else
+                {
+                    <span class="badge badge-info-light">Entwurf</span>
+
+                    @if (inquiry.PublishedAt.HasValue)
+                    {
+                        <br />
+                        <small class="text-sm">wird @inquiry.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr veröffentlicht</small>
+                    }
+                }
+            </td>
+            <td class="d-none d-md-table-cell">@inquiry.Project.ContactClerk</td>
+            <td class="text-end">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Aktion
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item detail" href="@Url.Action("Detail", "Inquiry", new { id = inquiry.Id })">Details</a></li>
+                        <li><a class="dropdown-item @(inquiry.Matches.Any(m => m.Offers.Any()) ? "" : "disabled")" href="@Url.Action("Index", "Offer", new { SelectedInquiryId = inquiry.Id })">Angebote ansehen</a></li>
+                        <li title="@(inquiry.Matches.Any() ? "Bearbeiten nicht möglich wenn Matches gefunden wurden" : "")">
+                            <a class="dropdown-item @(inquiry.Matches.Any() ? "disabled" : "")" href="@Url.Action("Edit", "Inquiry", new { id = inquiry.Id })">
+                                Bearbeiten
+                                @if (inquiry.Matches.Any())
+                                {
+                                    <small><i class="fa fa-info"></i></small>
+                                }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@functions {
+    private int RetrieveCountOffers(ICollection<MatchViewModel> Matches)
+    {
+        var result = Matches.Where(m => m.Offers.Any(o => o.State == OfferState.pending || o.State == OfferState.renew)).Count();
+        return result;
+    }
+}
+

@@ -1,0 +1,61 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.CreateUserViewModel
+@{
+    ViewBag.Title = "Benutzer hinzufügen";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">@ViewBag.Title</h5>
+                    </div>
+                    <div class="card-body">
+
+                        @Html.LabelFor(model => model.Email, "E-Mail*")
+                        <div class="form-group">
+
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+                        </div>
+
+                        @Html.LabelFor(model => model.Firstname, "Vorname")
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                        </div>
+
+                        @Html.LabelFor(model => model.Lastname, "Nachname")
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+                        </div>
+
+                        @Html.LabelFor(model => model.Password, "Passwort")
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+
+                        @Html.LabelFor(model => model.ConfirmPassword, "Passwort Bestätigung")
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+
+                        @Html.LabelFor(m => m.SelectedRole, "Benutzerrolle")
+                        @Html.DropDownListFor(model => model.SelectedRole, new SelectList(Model.RolesList, "Value", "Text", Model.SelectedRole), "- keine Rolle zugewiesen -", new { @class = "form-control" })
+                    </div>
+                    <div class="card-footer ">
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            @Html.ActionLink("Zurück zur Übersicht", "Index", null, new { @class = "btn btn-link" })
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,235 @@
+﻿@model BuyerHomeIndexViewModel
+
+@using Comabit.UI.Areas.Buyer.Models.Home;
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+
+@{
+    ViewBag.Title = "Dashboard";
+    string OrderedMatchesSinceLastWeekPercentClass = Model.OrderedMatchesSinceLastWeekPercent >= 0 ? "text-success" : "text-danger";
+    string NewOffersSinceLastWeekPercentClass = Model.NewOffersSinceLastWeekPercent >= 0 ? "text-success" : "text-danger";
+}
+
+@Html.HiddenFor(m => m.OffersTrendJson)
+<h1 class="h1 mb-1">Übersicht</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Das Wichtigste auf einen Blick</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-xl-6 col-xxl-5 d-flex">
+        <div class="w-100">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Neue Angebote</h5>
+                                </div>
+                            </div>
+                            <h1 class="mt-1 mb-3">@Model.CountNewOffers</h1>
+                            <div class="mb-0">
+                                <span class="@NewOffersSinceLastWeekPercentClass"> <i class="mdi mdi-arrow-bottom-right"></i> @Model.NewOffersSinceLastWeekPercent </span>
+                                <span class="text-muted">seit letzter Woche</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Beauftragungen</h5>
+                                </div>
+                            </div>
+                            <h1 class="mt-1 mb-3">@Model.CountOrderedMatches</h1>
+                            <div class="mb-0">
+                                <span class="@OrderedMatchesSinceLastWeekPercentClass"> <i class="mdi mdi-arrow-bottom-right"></i> @Model.OrderedMatchesSinceLastWeekPercent </span>
+                                <span class="text-muted">seit letzter Woche</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-xxl-7">
+        <div class="card flex-fill w-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Angebote Trend</h5>
+            </div>
+            <div class="card-body py-3">
+                <div class="chart chart-sm">
+                    <canvas id="ChartOffersTrend"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Neueste Angebote</h5>
+            </div>
+            @(await Html.PartialAsync("_Offers", Model.Offers))
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Neueste Anfragen</h5>
+            </div>
+            @(await Html.PartialAsync("_NewInquiries", Model.InquiriesOrderByCreated))
+        </div>
+    </div>
+    <div class="col-6 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Zuletzt bearbeitete Anfragen</h5>
+            </div>
+            @(await Html.PartialAsync("_LastUpdatedInquiries", Model.InquiriesOrderByUpdated))
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("body").on("change", ".filter-inquiry", function () {
+                location.href = "@Url.Action("Index", "Offer", new { }, Context.Request.Scheme)?SelectedInquiryId=" + $(this).val();
+            });
+
+        $('body').on('click', '.detail', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").replaceWith(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.edit-offer', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").remove();
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.renew-offer', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").replaceWith(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        var submit = function (url) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function () {
+                },
+                success: function (result) {
+                    $('#Modal').modal("show");
+                    $('#Modal .modal-content').html(result.html);
+                },
+                error: function (result) {
+                    $('#Modal .modal-content').html('Es ist ein Fehler aufgetreten.');
+                }
+            });
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var offersTrendJson = $.parseJSON($('#OffersTrendJson').val());
+            var lablesstrings = offersTrendJson.Labels;
+            var dataarrays = offersTrendJson.Data;
+            var yAxisStepsize = offersTrendJson.yAxisStepSize;
+            var ctx = document.getElementById("ChartOffersTrend").getContext("2d");
+            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+            // Line chart
+            new Chart(document.getElementById("ChartOffersTrend"), {
+                type: "line",
+                data: {
+                    labels: lablesstrings,
+                    datasets: [{
+                        label: "Anzahl Angebote",
+                        fill: true,
+                        backgroundColor: gradient,
+                        borderColor: window.theme.primary,
+                        data: dataarrays[0]
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        intersect: false
+                    },
+                    hover: {
+                        intersect: true
+                    },
+                    plugins: {
+                        filler: {
+                            propagate: false
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            reverse: true,
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: yAxisStepsize
+                            },
+                            display: true,
+                            borderDash: [3, 3],
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+

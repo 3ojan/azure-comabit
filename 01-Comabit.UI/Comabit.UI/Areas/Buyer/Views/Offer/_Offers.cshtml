@@ -1,0 +1,30 @@
+﻿@model ICollection<OfferViewModel>
+
+@using Comabit.UI.Models.Match;
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Anfrage Nr.</th>
+            <th scope="col">Projektname / Betreff</th>
+            <th scope="col">Kategorie</th>
+            <th scope="col">Firma</th>
+            <th scope="col">Bieterfrist</th>
+            <th scope="col">Erhalten am</th>
+            <th scope="col">Notiz</th>
+            <th scope="col">Datei</th>
+            <th scope="col">Status</th>
+            <th scope="col">Score <i class="fa fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Übereinstimmung Bedarf und Verkäufer-Portfolio"></i></th>
+            <th scope="col">Notizen</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var matchGroup in Model.GroupBy(o => o.Match.Id))
+        {
+            var offer = matchGroup.OrderByDescending(o => o.CreatedAt).FirstOrDefault();
+            @(await Html.PartialAsync("_Offer", offer))
+        }
+    </tbody>
+</table>
+

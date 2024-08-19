@@ -1,0 +1,45 @@
+﻿@model ICollection<MatchViewModel>
+
+@using Comabit.UI.Models.Match;
+
+<p>
+    <strong>Vorschau aller Matches</strong><br />
+    <br />
+    Um Verkäufer auszuschließen bitte diese abwählen
+</p>
+@if (Model.Any())
+{
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Firma</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MatchViewModel match in Model)
+            {
+                <tr>
+                    <td>
+                        @if (match.Checked)
+                        {
+                            <input type="checkbox" checked="checked" class="match-exclusion" data-id="@match.SellerId" />
+                        }
+                        else
+                        {
+                            <input type="hidden" class="excluded-seller" name="ExcludedSellerIds" value="@match.SellerId">
+                            <input type="checkbox" class="match-exclusion" data-id="@match.SellerId" />
+                        }
+                    </td>
+                    <td>@match.Seller.Name</td>
+                    <td>@Html.Raw(match.ScoreBadge)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <strong class="text-danger">Keine Matches gefunden</strong>
+}

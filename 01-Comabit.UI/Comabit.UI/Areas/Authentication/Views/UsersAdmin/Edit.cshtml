@@ -1,0 +1,49 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Benutzer bearbeiten";
+}
+
+<div class="flex-grow-1">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">@ViewBag.Title</h5>
+            </div>
+            <div class="card-body">
+                @Html.LabelFor(model => model.Email, "E-Mail*")
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+                </div>
+
+                @Html.LabelFor(model => model.Firstname, "Vorname")
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                </div>
+
+                @Html.LabelFor(model => model.Lastname, "Nachname")
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+                </div>
+
+                @Html.LabelFor(m => m.SelectedRole, "Benutzerrolle")
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.SelectedRole, new SelectList(Model.RolesList, "Value", "Text", Model.SelectedRole), "- keine Rolle zugewiesen -", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="card-footer ">
+                <button type="submit" class="btn btn-primary">Speichern</button>
+
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    @Html.ActionLink("Zurück zur Übersicht", "Index", null, new { @class = "btn btn-link" })
+                }
+            </div>
+        </div>
+    }
+</div>

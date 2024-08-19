@@ -1,0 +1,355 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/prpa/Desktop/Projects/comabit2/01-Comabit.UI/Comabit.UI/Comabit.UI.csproj": {}
+  },
+  "projects": {
+    "/home/prpa/Desktop/Projects/comabit2/01-Comabit.UI/Comabit.UI/Comabit.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/prpa/Desktop/Projects/comabit2/01-Comabit.UI/Comabit.UI/Comabit.UI.csproj",
+        "projectName": "Comabit.UI",
+        "projectPath": "/home/prpa/Desktop/Projects/comabit2/01-Comabit.UI/Comabit.UI/Comabit.UI.csproj",
+        "packagesPath": "/home/prpa/.nuget/packages/",
+        "outputPath": "/home/prpa/Desktop/Projects/comabit2/01-Comabit.UI/Comabit.UI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/prpa/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/prpa/Desktop/Projects/comabit2/02-Comabit-BL/Comabit.BL/Comabit.BL.csproj": {
+                "projectPath": "/home/prpa/Desktop/Projects/comabit2/02-Comabit-BL/Comabit.BL/Comabit.BL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Devart.Data.PostgreSql.EFCore": {
+              "target": "Package",
+              "version": "[7.20.1944, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.AspNetCore.Razor": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.Azure.SignalR": {
+              "target": "Package",
+              "version": "[1.17.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.VisualStudio.SlowCheetah": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.2.26, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.2.22, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.2.22, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
+            },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[4.13.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/prpa/.dotnet/sdk/8.0.400/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/prpa/Desktop/Projects/comabit2/02-Comabit-BL/Comabit.BL/Comabit.BL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/prpa/Desktop/Projects/comabit2/02-Comabit-BL/Comabit.BL/Comabit.BL.csproj",
+        "projectName": "Comabit.BL",
+        "projectPath": "/home/prpa/Desktop/Projects/comabit2/02-Comabit-BL/Comabit.BL/Comabit.BL.csproj",
+        "packagesPath": "/home/prpa/.nuget/packages/",
+        "outputPath": "/home/prpa/Desktop/Projects/comabit2/02-Comabit-BL/Comabit.BL/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/prpa/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/home/prpa/Desktop/Projects/comabit2/03-Comabit-DL/Comabit.DL/Comabit.DL.csproj": {
+                "projectPath": "/home/prpa/Desktop/Projects/comabit2/03-Comabit-DL/Comabit.DL/Comabit.DL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[15.0.5, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[2.15.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "ServiceStack.Interfaces": {
+              "target": "Package",
+              "version": "[5.12.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/prpa/.dotnet/sdk/8.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/prpa/Desktop/Projects/comabit2/03-Comabit-DL/Comabit.DL/Comabit.DL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/prpa/Desktop/Projects/comabit2/03-Comabit-DL/Comabit.DL/Comabit.DL.csproj",
+        "projectName": "Comabit.DL",
+        "projectPath": "/home/prpa/Desktop/Projects/comabit2/03-Comabit-DL/Comabit.DL/Comabit.DL.csproj",
+        "packagesPath": "/home/prpa/.nuget/packages/",
+        "outputPath": "/home/prpa/Desktop/Projects/comabit2/03-Comabit-DL/Comabit.DL/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/prpa/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Devart.Data.PostgreSql.EFCore": {
+              "target": "Package",
+              "version": "[7.20.1944, )"
+            },
+            "ErikEJ.EntityFrameworkCore.DgmlBuilder": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "NEST": {
+              "target": "Package",
+              "version": "[7.14.1, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/prpa/.dotnet/sdk/8.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

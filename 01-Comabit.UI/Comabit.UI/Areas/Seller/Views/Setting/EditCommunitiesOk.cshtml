@@ -1,0 +1,26 @@
+﻿@model PortfolioEditViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Settings;
+
+@{
+    ViewBag.Title = "Vertriebsgebiet erfolgreich aktualisiert";
+}
+
+<h1 class="h1 mb-1">Meine Vertriebsgebiete</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Vertriebsgebiete bearbeiten</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-success" role="alert">
+            <div class="alert-message">
+                @ViewBag.Title
+            </div>
+        </div>
+    </div>
+</div>

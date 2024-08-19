@@ -1,0 +1,138 @@
+﻿@model InquiryViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+@using Comabit.BL.Helpers.Enumerations;
+
+<tr class="inquiry-@Model.Id cursor-pointer detail" href="@Url.Action("Detail", "Inquiry", new { id = Model.Id })">
+    <td><strong>@Model.InquiryNumber</strong></td>
+    <td><strong>@Model.Project.ProjectName</strong></td>
+    <td>
+        @foreach (var group in Model.SelectedPortfolios?.GroupBy(s => s.Key))
+        {
+            <strong>@group.Key -</strong>
+
+            foreach (var portfolio in group)
+            {
+                <strong>@portfolio.Value</strong><br />
+            }
+
+            <br />
+        }
+
+        <span>@Model.Purepose</span>
+    </td>
+    <td>
+        @if (Model.IsPublished)
+        {
+            <span class="badge badge-success-light">veröffentlicht</span><br />
+            <small class="text-sm">@Model.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr</small>
+        }
+        else
+        {
+            <span class="badge badge-info-light">Entwurf</span>
+
+            @if (Model.PublishedAt.HasValue)
+            {
+                <br />
+                <small class="text-sm">wird @Model.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr veröffentlicht</small>
+            }
+        }
+    </td>
+    <td>
+        <span class="badge @Model.DeadlineStateBadgeClass">@Model.DeadlineState.GetDescription()</span><br />
+        @Model.Deadline.ToString("dd.MM.yyyy")<br />
+        <small class="text-sm">@Model.DeadlineInfo</small>
+    </td>
+    <td>
+        @if (Model.PlacingState == Comabit.DL.Data.Inquiry.PlacingState.Open)
+        {
+            <span class="badge badge-info-light">@Model.PlacingState.GetDescription()</span>
+        }
+        else if (Model.PlacingState == Comabit.DL.Data.Inquiry.PlacingState.PartialPlaced)
+        {
+            <span class="badge badge-warning-light">@Model.PlacingState.GetDescription()</span>
+        }
+        else if (Model.PlacingState == Comabit.DL.Data.Inquiry.PlacingState.FullPlaced)
+        {
+            <span class="badge badge-success-light">@Model.PlacingState.GetDescription()</span>
+        }
+        else if (Model.PlacingState == Comabit.DL.Data.Inquiry.PlacingState.NotPlaced)
+        {
+            <span class="badge badge-warning-light">@Model.PlacingState.GetDescription()</span>
+        }
+
+        @if (Model.IsClosed)
+        {
+            <span class="badge badge-primary-light">geschlossen</span>
+        }
+
+        @if (Model.IsCanceled)
+        {
+            <span class="badge badge-danger-light">abgebrochen</span>
+        }
+    </td>
+    <td>
+        @if (Model.Matches.Count() > 0)
+        {
+            <a class="detail" href="@Url.Action("Matches", "Inquiry", new { inquiryId = Model.Id })">
+                @Model.Matches.Count()
+            </a>
+        }
+        else
+        {
+            @Model.Matches.Count()
+        }
+    </td>
+    <td>
+        <a href="@Url.Action("Index", "Offer", new { SelectedInquiryId = Model.Id })">
+            <span class="">
+                @Model.Matches.Sum(m => m.Offers.Where(o => o.State == OfferState.ordered).Count())
+                / @Model.Matches.Sum(m => m.Offers.Count())
+            </span>
+        </a>
+    </td>
+    <td class="text-end">
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Aktion
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item detail" href="@Url.Action("Detail", "Inquiry", new { id = Model.Id })">Details</a></li>
+                <li><a class="dropdown-item @(Model.Matches.Any(m => m.Offers.Any()) ? "" : "disabled")" href="@Url.Action("Index", "Offer", new { SelectedInquiryId = Model.Id })">Angebote ansehen</a></li>
+                <li title="@(Model.Matches.Any() ? "Bearbeiten nicht möglich wenn Matches gefunden wurden" : "")">
+                    <a class="dropdown-item @(Model.Matches.Any() ? "disabled" : "")" href="@Url.Action("Edit", "Inquiry", new { id = Model.Id })">
+                        Bearbeiten
+                        @if (Model.Matches.Any())
+                        {
+                            <small><i class="fa fa-info"></i></small>
+                        }
+                    </a>
+                </li>
+                @if (Model.IsPublished)
+                {
+                    <li>
+                        <a class="dropdown-item edit-placing" href="@Url.Action("EditState", "Inquiry", new { id = Model.Id })">
+                            Vergabe Status
+                        </a>
+                    </li>
+                }
+
+                @if (!Model.IsPublished)
+                {
+                    <li>
+                        <a class="dropdown-item publish" href="@Url.Action("Publish", "Inquiry", new { id = Model.Id })">
+                            Veröffentlichen
+                        </a>
+                    </li>
+                }
+
+                <li>
+                    <a class="dropdown-item cancel" href="@Url.Action("Cancel", "Inquiry", new { id = Model.Id })">
+                        Anfrage abbrechen
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

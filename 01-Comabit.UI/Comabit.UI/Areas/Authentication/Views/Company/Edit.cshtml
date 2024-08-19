@@ -1,0 +1,84 @@
+﻿@model Comabit.UI.Areas.Admin.Models.CompanyViewModel
+
+@{
+    ViewBag.Title = "Anmeldung";
+}
+
+<h1 class="h1 mb-1">Ihr Firmen-Profil</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Firmen-Profil</li>
+    </ol>
+</nav>
+
+<div class="flex-grow-1">
+    @using (Html.BeginForm("Edit", "Company", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "form-signin", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="card">
+            <div class="card-body">
+                @Html.ValidationSummary(true)
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        @Html.LabelFor(m => m.Name, "Firmen-Name*", new { @class = "label" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control w-100", @placeholder = "Firmen-Name*" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        @Html.LabelFor(m => m.Street, "Straße*", new { @class = "label" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Street, new { @class = "form-control w-100", @placeholder = "Straße*" })
+                            @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        @Html.LabelFor(m => m.PostalCode, "PLZ*", new { @class = "label" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control w-100", @placeholder = "PLZ*" })
+                            @Html.ValidationMessageFor(m => m.PostalCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        @Html.LabelFor(m => m.City, "Ort*", new { @class = "label" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control w-100", @placeholder = "Ort*" })
+                            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        @Html.LabelFor(m => m.BusinessTaxId, "Geschäftssteuer-ID", new { @class = "label" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.BusinessTaxId, new { @class = "form-control w-100", @placeholder = "Geschäftssteuer-ID" })
+                            @Html.ValidationMessageFor(m => m.BusinessTaxId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        @Html.LabelFor(m => m.UstId, "Ust-ID", new { @class = "label" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.UstId, new { @class = "form-control w-100", @placeholder = "Ust-ID" })
+                            @Html.ValidationMessageFor(m => m.UstId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Speichern</button>
+                </p>
+            </div>
+        </div>
+    }
+</div>

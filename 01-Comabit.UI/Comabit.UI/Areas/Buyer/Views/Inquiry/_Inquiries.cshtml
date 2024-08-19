@@ -1,0 +1,26 @@
+﻿@model ICollection<InquiryViewModel>
+
+@using Comabit.UI.Models.Match;
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">BSM-ID</th>
+            <th scope="col">Projekt</th>
+            <th scope="col">Kategorie / Betreff</th>
+            <th scope="col">Anfragestatus</th>
+            <th scope="col">Bieterfrist</th>
+            <th scope="col">Vergabestatus</th>
+            <th scope="col">Matches</th>
+            <th scope="col">Angebote: angenommen/erhaltene</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (InquiryViewModel match in Model)
+        {
+            @(await Html.PartialAsync("_Inquiry", match))
+        }
+    </tbody>
+</table>
+

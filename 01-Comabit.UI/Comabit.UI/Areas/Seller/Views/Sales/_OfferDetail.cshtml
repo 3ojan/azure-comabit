@@ -1,0 +1,31 @@
+﻿@model ICollection<OfferViewModel>
+
+@using Comabit.UI.Models.Match;
+
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Folgende Angebote wurden bereits gesendet</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <th>Datum</th>
+                <th>Nummer</th>
+                <th>Nachricht</th>
+                <th>Status</th>
+                <th>Angebot</th>
+            </tr>
+            @foreach (OfferViewModel offer in Model)
+            {
+                <tr>
+                    <td>@offer.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@offer.Number</td>
+                    <td>@offer.Text</td>
+                    <td>@offer.State</td>
+                    <td><a href="@Url.Action("Download", "Match", new { id = offer.FileId })">@offer.File.FileName</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

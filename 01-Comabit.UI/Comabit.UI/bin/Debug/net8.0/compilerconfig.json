@@ -1,0 +1,13 @@
+﻿[
+  {
+    "inputFile": "App_Data/src/site.scss",
+    "outputFile": "wwwroot/css/site.css",
+    "minify": { "enabled": true },
+    "includeInProject": true,
+    "outputStyle": "nested",
+    "options": {
+      "sourceMap": true,
+      "relativeUrls": false
+    }
+  }
+]

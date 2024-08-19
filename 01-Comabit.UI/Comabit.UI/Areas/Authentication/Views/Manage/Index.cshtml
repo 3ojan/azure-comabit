@@ -1,0 +1,29 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Benutzerprofil bearbeiten";
+}
+
+@section BreadCrumb {
+    <ol class="crumb">
+        <li>
+            @Html.ActionLink("Start", "index", "home", new { area = "Authentication" }, new { })
+        </li>
+        <li>
+            Benutzerprofil
+        </li>
+    </ol>
+}
+
+<ul>
+    <li>
+        @if (Model.HasPassword)
+        {
+            @Html.ActionLink("Passwort ändern", "ChangePassword")
+        }
+        else
+        {
+            @Html.ActionLink("Passwort festlegen", "SetPassword")
+        }
+    </li>
+</ul>

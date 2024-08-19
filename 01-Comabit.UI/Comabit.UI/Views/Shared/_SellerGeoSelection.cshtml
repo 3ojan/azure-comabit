@@ -1,0 +1,19 @@
+﻿@model ICollection<CommunityViewModel>
+
+@using Comabit.UI.Areas.Authentication.Models.Geo;
+
+@if (Model != null && Model.Any())
+{
+    <select class="form-select select2 geo-community">
+        <option>Landkreis hinzufügen</option>
+
+        @foreach (CommunityViewModel community in Model)
+        {
+            <option value="@community.Id">@community.Name</option>
+        }
+    </select>
+}
+else
+{
+    <input disabled class="form-select" type="text" value="Landkreis hinzufügen"/>
+}

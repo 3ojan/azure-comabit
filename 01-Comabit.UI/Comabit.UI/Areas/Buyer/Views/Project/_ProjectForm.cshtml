@@ -1,0 +1,75 @@
+﻿@model CreateEditViewModel
+@using Comabit.UI.Areas.Buyer.Models.Project;
+
+<div class="row mb-3">
+    <div class="col col-6">
+        @Html.LabelFor(m => m.ProjectName, "Projektname*", new { @class = "label" })
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control w-100" })
+            @Html.ValidationMessageFor(m => m.ProjectName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col col-6">
+        @Html.LabelFor(m => m.Street, "Straße*", new { @class = "label" })
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.Street, new { @class = "form-control w-100" })
+            @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col col-6">
+        @Html.LabelFor(m => m.PostalCode, "PLZ*", new { @class = "label" })
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control w-100" })
+            @Html.ValidationMessageFor(m => m.PostalCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col col-6">
+        @Html.LabelFor(m => m.City, "Ort*", new { @class = "label" })
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control w-100" })
+            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col col-6">
+        @Html.LabelFor(m => m.ContactClerk, "Ansprechpartner*", new { @class = "label" })
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.ContactClerk, new { @class = "form-control w-100" })
+            @Html.ValidationMessageFor(m => m.ContactClerk, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col col-6">
+        @Html.LabelFor(m => m.ContactEmail, "Email*", new { @class = "label" })
+        <div class="input-group">
+            @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control w-100" })
+            @Html.ValidationMessageFor(m => m.ContactEmail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+@if (Model.Id.HasValue)
+{
+    <div class="row mb-3">
+        <div class="col col-12">
+            <label class="form-check">
+                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input" })
+                <span class="form-check-label">
+                    aktiv?
+                </span>
+            </label>
+        </div>
+    </div>
+}
+
+@if (!Model.Id.HasValue)
+{
+    <button type="submit" formaction="@Url.Action("AddAndCreateInquiry", "Project", new { Area = Roles.Buyer})" class="btn btn-primary">Speichern und neue Anfrage anlegen</button>
+}
+
+<button type="submit" class="btn btn-primary">Speichern</button>
+<a href="@Url.Action("Index")" class="btn btn-link">Zurück zur Übersicht</a>

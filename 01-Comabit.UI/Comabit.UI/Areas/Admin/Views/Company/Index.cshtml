@@ -1,0 +1,105 @@
+﻿@model List<CompanyViewModel>
+
+@using Comabit.UI.Areas.Admin.Models;
+@using Microsoft.AspNetCore.Identity;
+@using Comabit.DL;
+
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewBag.Title = "Firmen Übersicht";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@ViewBag.Title</h4>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Firmenname</th>
+                                    <th>Gewerbesteuer-Id / Ust-Id</th>
+                                    <th>Addresse</th>
+                                    <th>Rolle</th>
+                                    <th>BenutzerAccounts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (CompanyViewModel company in Model)
+                                    {
+                                        <tr>
+                                            <td>@company.Name</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(company.BusinessTaxId) && !string.IsNullOrEmpty(company.UstId))
+                                                {
+                                                    <text>@company.BusinessTaxId / @company.UstId</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>@company.BusinessTaxId@company.UstId</text>
+                                                }
+                                            </td>
+                                            <td>
+                                                <small>
+                                                    @company.Street <br />
+                                                    @if (!string.IsNullOrEmpty(company.City) && !string.IsNullOrEmpty(company.PostalCode))
+                                                    {
+                                                        <text>@company.PostalCode, @company.City</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>@company.PostalCode@company.City</text>
+                                                    }
+                                                </small>
+                                            </td>
+                                            <td>
+                                                @company.Role
+                                            </td>
+                                            <td>
+                                                @foreach (var user in company.Users)
+                                                {
+                                                    <small class="">
+                                                        @user.Email<br />
+                                                        @user.Firstname @user.Lastname<br />
+                                                        @if (user.EmailConfirmed)
+                                                        {
+                                                            <span class="badge badge-success" title="Registierung wurde bestätigt">bestätigt</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-warning" title="Registierung wurde noch nicht bestätigt">Bestätigung austehend</span>
+                                                        }
+                                                        <br />
+                                                        @user.CreatedAt?.ToString("dd.MM.yy HH:mm")
+                                                    </small>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (User.HasPermission(Permissions.CompanyDelete))
+                                                {
+                                                    <a href="@Url.Action("Delete", "Company", new { id = company.Id })" class="btn btn-danger btn-sm">löschen</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+    </script>
+}

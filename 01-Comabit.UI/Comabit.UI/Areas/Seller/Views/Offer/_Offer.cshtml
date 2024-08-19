@@ -1,0 +1,88 @@
+﻿@model MatchViewModel
+
+@using Comabit.UI.Models.Match;
+
+<tr class="cursor-pointer detail" data-id="@Model.Id">
+    <td>@Model.Inquiry.Project.Buyer.Name</td>
+    <td>
+        @foreach (var group in Model.Inquiry.SelectedPortfolios?.GroupBy(s => s.Key))
+        {
+            <strong>@group.Key -</strong>
+
+            foreach (var portfolio in group)
+            {
+                <strong>@portfolio.Value</strong><br />
+            }
+
+            <br />
+        }
+
+        <span>@Model.Inquiry.Purepose</span>
+    </td>
+    <td>
+        @if (Model.Inquiry.PublishedAt.HasValue)
+        {
+            <text>@Model.Inquiry.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr</text>
+        }
+    </td>
+    <td>
+        @Model.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+        <small>@Model.Inquiry.DeadlineInfo</small>
+    </td>
+    <td>
+        @if (Model.CurrentOffer != null)
+        {
+            if (Model.CurrentOffer.State == Comabit.DL.Data.Match.OfferState.pending || Model.CurrentOffer.State == Comabit.DL.Data.Match.OfferState.renew)
+            {
+                <span class="badge badge-warning-light">@Model.CurrentOffer.State.GetDescription()</span>
+            }
+            else if (Model.CurrentOffer.State == Comabit.DL.Data.Match.OfferState.ordered)
+            {
+                <span class="badge badge-success-light">@Model.CurrentOffer.State.GetDescription()</span>
+            }
+            else if (Model.CurrentOffer.State == Comabit.DL.Data.Match.OfferState.revoked)
+            {
+                <span class="badge badge-danger-light">@Model.CurrentOffer.State.GetDescription()</span>
+            }
+
+            <text>@Model.CurrentOffer.CreatedAt.ToString("dd.MM.yyyy HH.mm") Uhr</text>
+        }
+        else
+        {
+            <span class="badge badge-info-light">Noch kein Angebot verschickt</span>
+        }
+
+        @if (Model.Inquiry.IsCanceled)
+        {
+            <br />
+            <span class="badge badge-danger-light">Anfrage abgebrochen</span>
+        }
+    </td>
+    <td>
+        @if (Model.CurrentOffer != null)
+        {
+            @Model.CurrentOffer.BuyerNote
+        }
+    </td>
+    <td>
+        @if (Model.CurrentOffer != null)
+        {
+            <a class="" href="@Url.Action("DownloadFile", "File", new { Area = "", id = Model.CurrentOffer.FileId })" title="@Model.CurrentOffer.File.FileName"><i class="far fa-file-pdf text-lg"></i></a><br />
+            <br />
+            @Model.Inquiry.Notes
+        }
+    </td>
+    <td class="text-end">
+        <a href="" data-receiverid="@Model.Inquiry.Project.BuyerId" data-buyername="@Model.Inquiry.Project.Buyer.Name" data-inquirynumber="@Model.Inquiry.InquiryNumber" data-portfolio="@Model.Inquiry.FirstPortfolioAsString" data-id="@Model.Id" class="btn btn-primary btn-messages float-start me-1 mb-1"><i class="fa fa-envelope"></i></a>
+        <div class="dropdown float-start">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Aktion
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item detail" href="" data-id="@Model.Id">Details</a></li>
+                <li><a class="dropdown-item" href="@Url.Action("Edit", new { id = Model.Id })">Angebot erstellen</a></li>
+                <li><a class="dropdown-item discard-match" data-id="@Model.Id" href="@Url.Action("Revoke", new { id = Model.Id })">Anfrage verwerfen</a></li>
+            </ul>
+        </div>
+    </td>
+</tr>

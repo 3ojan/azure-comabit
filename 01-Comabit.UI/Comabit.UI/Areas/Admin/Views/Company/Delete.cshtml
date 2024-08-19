@@ -1,0 +1,32 @@
+﻿@model CompanyViewModel
+
+@using Comabit.UI.Areas.Admin.Models;
+
+@{
+    ViewBag.Title = "Firma und Benutzer Löschen";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Sind Sie sicher, dass Sie die <strong>@Model.Name</strong> und die dazugehörigen Benutzer löschen möchten?</h3>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <p>
+                    <input type="submit" value="Ja, Löschen" class="btn btn-danger" />
+
+                    @if (User.HasPermission(Permissions.CompanyList))
+                    {
+                        @Html.ActionLink("Nein, zurück zur Übersicht", "Index", null, new { @class = "btn btn-link" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Nein, zurück zur Startseite", "Index", "Home", new { Area = "" }, new { @class = "btn btn-link" })
+                    }
+                </p>
+            }
+        </div>
+    </div>
+</div>

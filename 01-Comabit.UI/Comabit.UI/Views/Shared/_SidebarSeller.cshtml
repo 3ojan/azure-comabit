@@ -1,0 +1,64 @@
+﻿<li class="sidebar-header">
+    Arbeitsplatz
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Index", "Home", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("Index", "Home", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-chalkboard"></i> <span class="align-middle">Dashboard</span>
+    </a>
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Index", "Message", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("Index", "Message", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-envelope"></i> <span class="align-middle">Nachrichten</span> <span class="badge bg-primary sidebar-badge">3</span>
+    </a>
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Index", "Match", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("Index", "Match", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-book"></i> <span class="align-middle">Anfragenpool</span>
+    </a>
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Index", "Offer", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("Index", "Offer", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-handshake"></i> <span class="align-middle">Angebotsmanager</span>
+    </a>
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Index", "Order", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("Index", "Order", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-handshake"></i> <span class="align-middle">Auftragspool</span>
+    </a>
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Index", "Statistic", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="#@Url.Action("Index", "Statistic", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-chart-bar"></i> <span class="align-middle">Statistiken</span>
+    </a>
+</li>
+
+<li class="sidebar-header">
+    Einstellungen
+</li>
+
+@if (User.HasCompany())
+{
+    <li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("Edit", "Company", new { Area = "Authentication" })) ? "active" : "")">
+        <a href="@Url.Action("Edit", "Company", new { Area = "Authentication" })" class="sidebar-link">
+            <i class="align-middle fa fa-address-card"></i> <span class="align-middle">Firmen-Profil</span>
+        </a>
+    </li>
+}
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("EditPortfolio", "Setting", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("EditPortfolio", "Setting", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-cog"></i> <span class="align-middle">Portfolio</span>
+    </a>
+</li>
+
+<li class="sidebar-item @(Context.Request.Path.StartsWithSegments(Url.Action("EditCommunities", "Setting", new { area = Roles.Seller })) ? "active" : "")">
+    <a href="@Url.Action("EditCommunities", "Setting", new { Area = Roles.Seller })" class="sidebar-link">
+        <i class="align-middle fa fa-map-marked"></i> <span class="align-middle">Vertriebsgebiet</span>
+    </a>
+</li>

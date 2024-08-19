@@ -1,0 +1,44 @@
+﻿@model ICollection<InquiryViewModel>
+
+@using Comabit.UI.Models.Match;
+
+<table class="table table-hover my-0">
+    <thead>
+        <tr>
+            <th>Nummer</th>
+            <th>Zuletzt bearbeitet</th>
+            <th>Bieterfrist</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inquiry in Model)
+        {
+        <tr>
+            <td>@inquiry.InquiryNumber</td>
+            <td>@inquiry.UpdatedAt.ToString("dd.MM.yyyy hh:mm")</td>
+            <td>@inquiry.Deadline.ToString("dd.MM.yyyy hh:mm")</td>
+            <td class="text-end">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Aktion
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item detail" href="@Url.Action("Detail", "Inquiry", new { id = inquiry.Id })">Details</a></li>
+                        <li><a class="dropdown-item @(inquiry.Matches.Any(m => m.Offers.Any()) ? "" : "disabled")" href="@Url.Action("Index", "Offer", new { SelectedInquiryId = inquiry.Id })">Angebote ansehen</a></li>
+                        <li title="@(inquiry.Matches.Any() ? "Bearbeiten nicht möglich wenn Matches gefunden wurden" : "")">
+                            <a class="dropdown-item @(inquiry.Matches.Any() ? "disabled" : "")" href="@Url.Action("Edit", "Inquiry", new { id = inquiry.Id })">
+                                Bearbeiten
+                                @if (inquiry.Matches.Any())
+                                {
+                                    <small><i class="fa fa-info"></i></small>
+                                }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

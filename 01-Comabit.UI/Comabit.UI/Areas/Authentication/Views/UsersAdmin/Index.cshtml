@@ -1,0 +1,93 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.ListUsersViewModel
+@using Users.Infrastructure
+
+@{
+    ViewBag.Title = "Benutzer Übersicht";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Benutzer</h4>
+                    @if (User.HasPermission(Permissions.UserCreate))
+                    {
+                        <a href="@Url.Action("Create")" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Benutzer hinzufügen</a>
+                    }
+
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <table class="table">
+                            <thead class="text-primary">
+                                <tr>
+                                    <th>
+                                    </th>
+                                    <th>
+                                        Firma
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        E-Mail
+                                    </th>
+                                    <th>
+                                        Rolle
+                                    </th>
+                                    <th class="text-right">
+                                        Aktionen
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int nr = 0;
+
+                                    foreach (var item in Model.Users)
+                                    {
+                                        if (!item.Roles.Contains("SuperAdmin") || this.User.IsInRole("SuperAdmin"))
+                                        {
+                                            nr += 1;
+
+                                            <tr>
+                                                <td>@nr</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.User.Company)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.User.FullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.User.Email)
+                                                </td>
+                                                <td>
+                                                    @if (item.Roles.Any())
+                                                    {
+                                                        @item.Roles.Aggregate((a, b) => a + ", " + b)
+                                                    }
+                                                </td>
+                                                <td class="text-right">
+                                                    @if (User.HasPermission(Permissions.UserEdit))
+                                                    {
+                                                        <a href="@Url.Action("Edit", new { id = item.User.Id })" class="btn btn-sm btn-icon btn-primary">bearbeiten</a>
+                                                    }
+
+                                                    @if (User.HasPermission(Permissions.UserDelete))
+                                                    {
+                                                        <a href="@Url.Action("Delete", new { id = item.User.Id })" class="btn btn-sm btn-icon btn-danger">löschen</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

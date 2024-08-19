@@ -1,0 +1,142 @@
+﻿@model OfferViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.BL.Helpers.Enumerations;
+@using Comabit.DL.Data.Match;
+
+@{
+    ViewBag.Title = "Angebot und Anfrage Details";
+}
+
+@using (Html.BeginForm("SaveNote", "Offer", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "modal-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="modal-header">
+        <h5 class="modal-title">@ViewBag.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body m-3">
+        <table class="table">
+            <tr>
+                <th>Firma</th>
+                <td>
+                    @Model.Match.Seller.Name<br />
+                    <small>
+                        @Model.Match.Seller.Street<br />
+                        @Model.Match.Seller.PostalCode @Model.Match.Seller.City
+                    </small>
+                </td>
+
+                <th></th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Anf.-Nr.</th>
+                <td>@Model.Match.Inquiry.InquiryNumber</td>
+
+                <th>Bieterfrist</th>
+                <td>
+                    <span class="badge @Model.Match.Inquiry.DeadlineStateBadgeClass">@Model.Match.Inquiry.DeadlineState.GetDescription()</span><br />
+                    @Model.Match.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+                    <small class="text-sm">@Model.Match.Inquiry.DeadlineInfo</small>
+                </td>
+            </tr>
+            <tr>
+                <th>Kategorie</th>
+                <td>
+                    @foreach (var group in Model.Match.Inquiry.SelectedPortfolios.GroupBy(s => s.Key))
+                    {
+                        <strong>@group.Key -</strong>
+
+                        foreach (var portfolio in group)
+                        {
+                            <strong>@portfolio.Value</strong><br />
+                        }
+
+                        <br />
+                    }
+                </td>
+
+                <th>Lieferangaben</th>
+                <td>
+                    <small>
+                        @Model.Match.Inquiry.DeliveryStreet<br />
+                        @Model.Match.Inquiry.DeliveryPostalCode @Model.Match.Inquiry.DeliveryCity<br />
+                        @Model.Match.Inquiry.DeliveryDate.ToString("dd.MM.yyyy HH:mm")<br />
+                        @Model.Match.Inquiry.DeliveryInfo
+                    </small>
+                </td>
+            </tr>
+            <tr>
+                <th>Anfrage-Dokumente</th>
+                <td>
+                    @foreach (var file in Model.Match.Inquiry.Files)
+                    {
+                        <a class="link" href="@Url.Action("DownloadFile", "File", new { Area = "", id = file.Id })">@file.FileName</a><br />
+                    }
+                </td>
+                <th>Anfrage</th>
+                <td colspan="3">
+                    <small>
+                        @Model.Match.Inquiry.Notes
+                    </small>
+                </td>
+            </tr>
+            <tr>
+                <th>Angebote</th>
+                <td>Status</td>
+                <td>erstellt am</td>
+                <td></td>
+            </tr>
+            @foreach (OfferViewModel offer in Model.Match.Offers)
+            {
+                <tr>
+                    <td>
+                        @offer.Text
+                    </td>
+                    <td>
+                        @if (offer.State == OfferState.pending)
+                        {
+                            <span class="badge badge-primary-light">
+                                @offer.State.GetDescription()
+                            </span>
+                        }
+                        else if (offer.State == OfferState.ordered)
+                        {
+                            <span class="badge badge-success-light">
+                                @offer.State.GetDescription()
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-info-light">
+                                @offer.State.GetDescription()
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @offer.CreatedAt.ToString("dd.MM.yyyy HH:mm") Uhr
+                    </td>
+                    <td>
+                        <a class="link" href="@Url.Action("DownloadFile", "File", new { Area = "", id = offer.FileId })">@offer.File.FileName</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <p>
+            @Html.LabelFor(m => m.BuyerNote, "Notizen", new { @class = "label" })
+            <div class="input-group">
+                @Html.TextAreaFor(m => m.BuyerNote, new { @class = "form-control" })
+            </div>
+        </p>
+        <p>
+            <button type="submit" class="btn btn-primary">Notiz Speichern</button>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-messages" data-bs-dismiss="modal" data-receiverid="@Model.Match.SellerId" data-sellername="@Model.Match.Seller.Name" data-inquirynumber="@Model.Match.Inquiry.InquiryNumber" data-portfolio="@Model.Match.Inquiry.FirstPortfolioAsString" data-offerid="@Model.Id" data-id="@Model.Match.Id"><i class="fa fa-envelope"></i></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+    </div>
+}

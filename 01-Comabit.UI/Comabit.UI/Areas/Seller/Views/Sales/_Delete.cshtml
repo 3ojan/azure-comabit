@@ -1,0 +1,44 @@
+﻿@model DeleteViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Match;
+@using Comabit.BL.Helpers.Enumerations;
+
+@{
+    ViewBag.Title = "Anfrage ablehnen";
+}
+
+@using (Html.BeginForm("Revoke", "Match", new { Area = Roles.Seller }, FormMethod.Post, true, new { @class = "modal-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="modal-header">
+        <h5 class="modal-title">@ViewBag.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body m-3">
+        <p class="">
+            Soll die Anfrage @Model.Inquiry.InquiryNumber von @Model.Inquiry.Project.Buyer.Name wirklich abgelehnt werden?
+        </p>
+
+        <div class="row">
+            <div class="col col-lg-6 col-sm-12">
+                @Html.LabelFor(m => m.RevokeReason, "Grund für Ablehnung* ")
+                <div class="input-group">
+                    @Html.DropDownListFor(m => m.RevokeReason, new SelectList(Enum.GetValues<RevokeReason>().Select(e => new { value = e, text = e.GetDescription() }), "value", "text"), "Bitte wählen", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col col-lg-6 col-sm-12">
+                @Html.LabelFor(m => m.RevokeReasonText, "Sontiges*")
+                <div class="input-group">
+                    @Html.TextAreaFor(m => m.RevokeReasonText, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">Anfrage ablehnen</button>
+    </div>
+}

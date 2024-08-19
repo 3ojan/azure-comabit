@@ -1,0 +1,45 @@
+﻿@model List<CompanyViewModel>
+
+@using Comabit.UI.Areas.Admin.Models;
+
+@{
+    ViewBag.Title = "Nachrichten";
+}
+
+<h1 class="h1 mb-1">Nachrichten</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Alle Nachrichten</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <h2 class="text-center" style="margin-top: 0; padding-top: 30px; padding-bottom: 30px;">Azure SignalR Group Chat</h2>
+
+    <div class="container" style="height: calc(100% - 110px);">
+        Deine Guid: @User.GetCompanyId()
+        <div id="sender" data-name="@User.GetFullName()"></div>
+        <select id="receiver" class="form-control">
+            <option value="">Empfänger auswählen</option>
+
+            @foreach (var company in Model.Where(m => m.Id != User.GetCompanyId()).OrderBy(c => c.Name))
+            {
+                <option value="@company.Id">@company.Name</option>
+            }
+        </select>
+        <br />
+        <br />
+        <div id="messages" style="background-color: whitesmoke; "></div>
+        <div style="width: 100%; border-left-style: ridge; border-right-style: ridge;">
+            <textarea id="message"
+                      style="width: 100%; padding: 5px 10px; border-style: hidden;"
+                      placeholder="Type message and press Enter to send..."></textarea>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/messaging.js" asp-append-version="true"></script>
+}

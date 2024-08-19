@@ -1,0 +1,36 @@
+﻿@model CreateOfferViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Match;
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Neues Angebot erstellen</h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Offer", "Match", null, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.MatchId)
+
+            <div class="row mb-3">
+                <div class="col col-6">
+                    <div class="input-group">
+                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", @placeholder = "optionale Nachricht", @rows = 6 })
+                    </div>
+                </div>
+                <div class="col col-6">
+                    @Html.LabelFor(m => m.File, "Angebot als PDF")
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.File, new { type = "file", @class = "form-control", accept = "application/pdf" })
+                        @Html.ValidationMessageFor(m => m.File, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-primary me-3" type="submit">Angebot erstellen</button>                
+                <a class="link" href="@Url.Action("Index")">zurück zur Übersicht</a>
+            </div>
+        }
+    </div>
+</div>

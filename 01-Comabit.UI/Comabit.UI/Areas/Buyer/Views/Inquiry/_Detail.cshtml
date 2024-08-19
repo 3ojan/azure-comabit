@@ -1,0 +1,112 @@
+﻿@model InquiryViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.BL.Helpers.Enumerations;
+@using Comabit.DL.Data.Match;
+
+@{
+    ViewBag.Title = "Anfrage Details";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewBag.Title</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body m-3">
+    <h3>Projekt</h3>
+
+    @await Html.PartialAsync("_ProjectDetail", Model.Project)
+
+    <h3>Bedarf</h3>
+
+    <div class="row mb-3">
+        <div class="col col-6">
+            Anfrage Nr.: @Model.InquiryNumber
+        </div>
+
+        <div class="col col-6">
+            @Model.Purepose
+        </div>
+
+    </div>
+
+    <div class="row mb-3">
+        <div class="col col-6">
+            @if (Model.IsPublished)
+            {
+                <span class="badge badge-success-light">veröffentlicht</span>
+                <small class="text-sm">@Model.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr</small>
+            }
+            else
+            {
+                <span class="badge badge-info-light">Entwurf</span>
+
+                @if (Model.PublishedAt.HasValue)
+                {
+                    <small class="text-sm">wird @Model.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr veröffentlicht</small>
+                }
+            }
+        </div>
+
+        <div class="col col-6">
+            Bieterfrist: 
+            <span class="badge @Model.DeadlineStateBadgeClass">@Model.DeadlineState.GetDescription()</span>
+            @Model.Deadline.ToString("dd.MM.yyyy")<br />
+            <small class="text-sm">@Model.DeadlineInfo</small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col col-12">
+            @if (Model.SelectedPortfolios != null)
+            {
+                @foreach (var group in Model.SelectedPortfolios.GroupBy(s => s.Key))
+                {
+                    <strong>@group.Key -</strong>
+
+                    foreach (var portfolio in group)
+                    {
+                        <strong>@portfolio.Value</strong><br />
+                    }
+
+                    <br />
+                }
+            }
+
+            <small>@Model.AddidtionalTags</small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col col-12">
+            <strong>Lieferangaben</strong><br />
+            @Model.DeliveryDate.ToString("dd.MM.yyyy HH:mm") Uhr<br />
+            @Model.DeliveryStreet<br />
+            @Model.DeliveryPostalCode @Model.DeliveryCity<br />
+            <small>@Model.DeliveryInfo</small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col col-12">
+            @foreach (var file in Model.Files)
+            {
+                <a href="@Url.Action("DownloadFile", "File", new { Area = "", id = file.Id })">@file.FileName</a>
+            }
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col col-6">
+            <strong>Matches:</strong> @Model.Matches.Count()<br />
+            <a href="@Url.Action("Index", "Offer", new { Area = "Buyer", SelectedInquiryId = Model.Id })">
+                <strong>Erhaltene Angebote:</strong> @Model.Matches.Where(m => m.Offers.Any(o => o.State == OfferState.pending || o.State == OfferState.renew)).Count()
+            </a>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

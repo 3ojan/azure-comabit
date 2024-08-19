@@ -1,0 +1,23 @@
+﻿@model EditViewModel
+@using Comabit.UI.Areas.Buyer.Models.Inquiry;
+<div class="row mb-3">
+    <div class="col col-12">
+
+        <div class="input-group">
+            <h5>Hochgeladene Dateien</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Dateiname</th>
+                        <th scope="col">Typ</th>
+                        <th scope="col">Größe</th>
+                        <th scope="col">löschen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @Html.EditorFor(m => m.Files)
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

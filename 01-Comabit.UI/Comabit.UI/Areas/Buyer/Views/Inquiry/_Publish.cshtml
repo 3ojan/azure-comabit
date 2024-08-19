@@ -1,0 +1,23 @@
+﻿@model InquiryViewModel
+
+@using Comabit.UI.Models.Match;
+
+@using (Html.BeginForm("Publish", "Inquiry", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "modal-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="modal-header">
+        <h5 class="modal-title">Anfrage veröffentlichen</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body m-3">
+        <p class="">
+            Soll die Anfrage @Model.InquiryNumber @Model.Purepose wirklich veröffentlicht werden?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">Veröffentlichen</button>
+    </div>
+}

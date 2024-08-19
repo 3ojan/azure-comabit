@@ -1,0 +1,92 @@
+﻿@model IndexViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Match;
+@using Comabit.DL.Data.Match;
+
+@{
+    ViewBag.Title = "Auftragspool";
+}
+
+<h1 class="h1 mb-1">Auftragspool</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Auftragspool | Angebote, auf die ein Einkäufer reagiert hat</li>
+    </ol>
+</nav>
+
+<div class="tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" data-bs-toggle="tab" data-bs-target="#All">Übersicht</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#Ordered">beauftragte Angebote</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#Failed">nicht beauftragte Angebote</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="All" role="tabpanel">
+            <div class="card">
+                <div class="card-body">
+                    @(await Html.PartialAsync("_Orders", Model.Matches))
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Ordered" role="tabpanel">
+            <div class="card">
+                <div class="card-body">
+                    @(await Html.PartialAsync("_Orders", Model.Matches.Where(m => m.Offers.Any(o => o.State == OfferState.ordered)).ToList()))
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Failed" role="tabpanel">
+            <div class="card">
+                <div class="card-body">
+                    @(await Html.PartialAsync("_Orders", Model.Matches.Where(m => m.Offers.All(o => o.State == OfferState.revoked)).ToList()))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalSalesmanager" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('body').on('click', '.detail', function () {
+            var url = $(this).attr("href");
+
+            submit(url);
+
+            return false;
+        });
+
+        var submit = function (url) {
+            $('#ModalSalesmanager').modal("show");
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function () {
+                    $('#ModalSalesmanager .modal-content').html("<div class='spinner-border text-dark me-2' role='status'><span class='visually-hidden'>Loading...</span></div>");
+                },
+                success: function (result) {
+                    $('#ModalSalesmanager .modal-content').html(result.html);
+                },
+                error: function (result) {
+                    $('#ModalSalesmanager .modal-content').html('Es ist ein Fehler aufgetreten.');
+                }
+            });
+        };
+    </script>
+}

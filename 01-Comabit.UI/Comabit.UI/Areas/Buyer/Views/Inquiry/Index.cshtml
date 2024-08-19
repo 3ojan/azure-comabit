@@ -1,0 +1,176 @@
+﻿@model IndexViewModel
+
+@using Comabit.UI.Areas.Buyer.Models.Inquiry;
+
+@{
+    ViewBag.Title = "Anfragen Übersicht";
+}
+
+@if (Model.SelectedProjectId.HasValue)
+{
+    var currentProject = Model.Projects.Where(p => p.Id == Model.SelectedProjectId.Value).FirstOrDefault();
+
+    <h1 class="h1 mb-2"><strong>Projektübersicht</strong></h1>
+
+    @if (Model.SelectedProject != null)
+    {
+        <p class="h2 mg-2">
+            @Model.SelectedProject.ProjectName, @Model.SelectedProject.Street, @Model.SelectedProject.PostalCode @Model.SelectedProject.City
+        </p>
+    }
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Project")">Projekte</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Inquiry")">Anfragen</a></li>
+            <li class="breadcrumb-item active">@currentProject.ProjectName</li>
+        </ol>
+    </nav>
+
+    <p>
+        <a class="btn btn-primary" href="@Url.Action("Create", new { projectId = Model.SelectedProjectId.Value })"><i class="fa fa-plus"></i> Neue Anfrage</a>
+    </p>
+}
+else
+{
+    <h1 class="h1 mb-1">Alle Anfragen</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Project")">Projekte</a></li>
+            <li class="breadcrumb-item active">Anfragen aller Projekte</li>
+        </ol>
+    </nav>
+}
+
+<div class="mb-3">
+    @Html.DropDownListFor(m => m.SelectedProjectId, new SelectList(Model.Projects.Select(p => new SelectListItem() { Text = p.ProjectName, Value = p.Id.ToString() }), "Value", "Text"),
+"Alle Projekte", new { @class = "form-select select2 filter-project w-50" })
+</div>
+
+<div class="tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" data-bs-toggle="tab" data-bs-target="#All">alle Anfragen</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#Active">offene Anfragen</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#Over">abgelaufene Anfragen</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="All" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Inquiries", Model.Inquiries))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Active" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Inquiries", Model.Inquiries.Where(m => m.Deadline >= DateTime.Now).ToList()))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Over" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Inquiries", Model.Inquiries.Where(m => m.Deadline < DateTime.Now).ToList()))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("body").on("change", ".filter-project", function () {
+                location.href = "@Url.Action("Index", "Inquiry", new { }, Context.Request.Scheme)?SelectedProjectId=" + $(this).val();
+            });
+
+            $('body').on('click', '.detail', function () {
+                var url = $(this).attr("href");
+
+                submit(url);
+
+                return false;
+            });
+
+            $('body').on('click', '.publish', function () {
+                var url = $(this).attr("href");
+                var btn = $(this);
+
+                $.fn.submitCallback = function (html) {
+                    btn.closest("tr").replaceWith(html);
+                };
+
+                submit(url);
+
+                return false;
+            });
+
+            $('body').on('click', '.edit-placing', function () {
+                var url = $(this).attr("href");
+                var btn = $(this);
+
+                $.fn.submitCallback = function (html) {
+                    btn.closest("tr").replaceWith(html);
+                };
+
+                submit(url);
+
+                return false;
+            });
+
+            $('body').on('click', '.cancel', function () {
+                var url = $(this).attr("href");
+                var btn = $(this);
+
+                $.fn.submitCallback = function (html) {
+                    btn.closest("tr").replaceWith(html);
+                };
+
+                submit(url);
+
+                return false;
+            });
+
+            var submit = function (url) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    beforeSend: function () {
+                    },
+                    success: function (result) {
+                        $('#Modal').modal("show");
+                        $('#Modal .modal-content').html(result.html);
+                    },
+                    error: function (result) {
+                        $('#Modal .modal-content').html('Es ist ein Fehler aufgetreten.');
+                    }
+                });
+            };
+        });
+    </script>
+}

@@ -1,0 +1,146 @@
+// Fonts
+@import "fonts";
+
+// comabit colors:
+$red: #E40046 !default;
+$black: #151515 !default;
+$gray: #707070 !default;
+
+body {
+    
+}
+
+
+.content {
+    &.borderless {
+        padding: 0px;
+    }
+} 
+ 
+.bg-buyer {
+    background: url(../img/layout/bsm-stahl.jpg) no-repeat $red;
+    background-size: cover;
+}
+
+.bg-seller {
+    background: url(../img/layout/bsm-typ.jpg) no-repeat $red;
+    background-size: cover;
+    background-position-x: right;
+}
+
+.content-buyer, .content-seller {
+    font-size: 1.25rem;
+    max-width: 540px;
+    padding: 100px 20px 20px;
+
+    h1 {
+        font-size: 2.75rem;
+        padding-top: 20px;
+    }
+
+    .btn {
+        font-size: 1.125rem;
+        padding: 1rem 2rem;
+    }
+
+    ul {
+        padding-left: 1em;
+    }
+
+    ul {
+        list-style-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='12'><path d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='black'/></svg>");
+    }
+}
+
+.content-buyer {
+    color: $red;
+
+    h1 {
+        color: $red;
+        border-top: 3px $red solid;
+    }
+
+    .btn {
+        background-color: $red;
+        color: $black;
+    }
+
+    ul {
+        list-style-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='12'><path d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='red'/></svg>");
+    }
+}
+
+.bg-content-buyer {
+    background-color: $black;    
+}
+
+.bg-content-seller {
+    background-color: $red;    
+}
+
+.content-seller {
+    color: $black;
+
+    h1 {
+        color: $black;
+        border-top: 3px $black solid;
+    }
+
+    .btn {
+        background-color: $black;
+        color: $red;
+    }
+}
+
+.header {
+    position: relative;
+
+    .logo {
+        position: absolute;
+        left: 50px;
+        top: 20px;
+        max-width: 300px;
+    }
+
+    .login {
+        position: absolute;
+        right: 70px;
+        top: 40px;
+        font-size: 1.25rem;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .sign {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 15vh;
+        max-width: 400px;
+        width: 25%;
+    }
+}
+
+.sidebar {
+
+    .sidebar-brand {
+        .logo {
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+
+    .sidebar-link {
+        i {
+            //color: $brand-primary;
+
+            &.fa {
+                width: 20px;
+            }
+        }
+    }
+}
+

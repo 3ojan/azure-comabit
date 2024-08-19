@@ -1,0 +1,253 @@
+﻿@model IndexViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Match;
+@using Comabit.BL.Helpers.Enumerations;
+@using Comabit.DL.Data.Match;
+@using Comabit.UI.Models.Match;
+
+@{
+    ViewBag.Title = "SalesManager";
+}
+
+<h1 class="h1 mb-1">Anfragen</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Neue Anfragen</li>
+    </ol>
+</nav>
+<div class="tab">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab" role="tab" aria-selected="true">Neue Anfragen</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab" role="tab" aria-selected="false">Abgelehnte Anfragen</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab-1" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Matches", Model.Matches.Where(m => m.State == MatchState.pending).ToList()))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab-2" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Matches", Model.Matches.Where(m => m.State == MatchState.revoked).ToList()))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalSalesmanager" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@(await Html.PartialAsync("_ModalChat"))
+
+@section Scripts {
+    <script>
+        $('body').on('click', '.restore', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").remove();
+                $("table.matches tbody").append(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.revoke', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").remove();
+                $("table.revoked-matches tbody").append(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.detail', function () {
+            var btn = $(this);
+            var url = "@Url.Action("Detail", "Match")/" + btn.data("id");
+
+            submit(url);
+
+            return false;
+        });
+
+
+        $('body').on('click', '.delete', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function () {
+                btn.closest("tr").remove();
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.add-to-sales', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function () {
+                btn.closest("tr").remove();
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        var submit = function (url) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function () {
+                    @*$('#ModalSalesmanager .modal-content').html("<div class='spinner-border text-dark me-2' role='status'><span class='visually-hidden'>Loading...</span></div>");*@
+                },
+                success: function (result) {
+                    $('#ModalSalesmanager').modal("show");
+                    $('#ModalSalesmanager .modal-content').html(result.html);
+                },
+                error: function (result) {
+                    $('#ModalSalesmanager .modal-content').html('Es ist ein Fehler aufgetreten.');
+                }
+            });
+        };
+
+        $('body').on('click', '.btn-messages', function () {
+            var match = $(this);
+            currentMatch = match;
+
+            $.ajax({
+                url: '@Url.Action("AllMessagesForMatch", "Message", new { Area = "" })',
+                type: 'GET',
+                data: {
+                    matchId: match.data('id'),
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#chat-messages').empty().html('Lade Nachrichten...');
+                },
+                success: function (result) {
+                    $('#chat-messages').empty();
+
+                    $.each(result, function (idx, message) {
+                        $('#chat-messages').append(getChatMessageHtml(message));
+                    });
+
+                    $('#ModalChat .detail').data('id', match.data('id'));
+                    $('#ModalChat #add-message-form').data('id', match.data('id'));
+                    $('#ModalChat #add-message-form').data('receiverid', match.data('receiverid'));
+
+                    $('#ModalChat .modal-title').text(match.data('buyername') + " / Anfrage: " + match.data('inquirynumber') + " / " + match.data('portfolio'));
+
+                    $('#ModalChat').modal("show");
+                },
+                error: function (request, error) {
+
+                }
+            });
+
+            return false;
+        });
+
+        $('body').on('submit', '#add-message-form', function () {
+            var matchId = $(this).data('id');
+            var messageText = stripHtml($('#message-input').val());
+            var receiverId = $(this).data('receiverid');
+
+            if ($('#message-input').val() === '') return false;
+
+            $.ajax({
+                url: '@Url.Action("AddMessage", "Message", new { Area = "" })',
+                type: 'POST',
+                data: {
+                    matchId: matchId,
+                    text: messageText,
+                },
+                dataType: 'json',
+                success: function (newMessage) {
+                    var chatMessages = $('#chat-messages');
+
+                    chatMessages.append(getChatMessageHtml(newMessage));
+
+                    chatMessages.animate({ scrollTop: chatMessages.prop("scrollHeight") }, 500);
+
+                    $('#message-input').val("").focus();
+
+                    messageHubConnection.send("SendMatchMessage", receiverId, matchId, newMessage.id);
+                },
+                error: function (request, error) {
+
+                }
+            });
+
+            return false;
+        });
+
+        getMessage = function (matchId, messageId) {
+                $.ajax({
+                    url: '@Url.Action("GetMatchChatForSeller", "Message", new { Area = "" })',
+                    type: 'GET',
+                    data: {
+                        matchId: matchId,
+                        messageId: messageId
+                    },
+                    dataType: 'json',
+                    success: function (matchChat) {
+                        $('#chat-messages').append(getChatMessageHtml(matchChat.newestMessage));
+
+                        var chatMessages = $('#chat-messages');
+                        var firstUnreadMessage = $('.chat-message.unread').first();
+
+                        if (firstUnreadMessage.length == 1) {
+                            chatMessages.animate({ scrollTop: chatMessages.scrollTop() + firstUnreadMessage.position().top - 100 }, 500);
+                        } else {
+                            chatMessages.animate({ scrollTop: chatMessages.prop("scrollHeight") }, 500);
+                        }
+
+                        $('.unread-badge', currentMatch).addClass('d-none');
+                    },
+                    error: function (request, error) {
+
+                    }
+                });
+            }
+
+        $(document).on("DOMContentLoaded", function () {
+            messageHubConnection.on('ReceiveMatchMessage', function (matchId, messageId) {
+                var currentMatchId = currentMatch.data("id");
+
+                if (currentMatchId == matchId) {
+                    getMessage(matchId, messageId);
+                }
+                //else {
+                //    updateMatchChat(matchId, messageId);
+                //}
+            });
+        });
+    </script>
+}

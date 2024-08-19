@@ -1,0 +1,97 @@
+﻿@model MatchViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+@using Comabit.BL.Helpers.Enumerations;
+
+@if (Model.State == Comabit.DL.Data.Match.MatchState.pending)
+{
+    <tr class="cursor-pointer detail" data-id="@Model.Id">
+        <td>@Model.Inquiry.InquiryNumber</td>
+        <td>@Model.Inquiry.Project.Buyer.Name</td>
+        <td>
+            @foreach (var group in Model.Inquiry.SelectedPortfolios.GroupBy(s => s.Key))
+            {
+                <strong>@group.Key -</strong>
+
+                foreach (var portfolio in group)
+                {
+                    <strong>@portfolio.Value</strong><br />
+                }
+            }
+        </td>
+        <td>
+            @if (Model.Inquiry.PublishedAt.HasValue)
+            {
+                <text>@Model.Inquiry.PublishedAt.Value.ToString("dd.MM.yyyy HH:mm") Uhr</text>
+            }
+        </td>
+        <td>
+            @Model.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+            <small>@Model.Inquiry.DeadlineInfo</small>
+        </td>
+        <td>
+            @Html.Raw(Model.ScoreBadge)
+
+            @if (Model.Inquiry.IsCanceled)
+            {
+                <span class="badge badge-danger-light">abgebrochen</span>
+            }
+        </td>
+        <td>
+            @foreach (var file in Model.Inquiry.Files)
+            {
+                <a class="link" href="@Url.Action("DownloadFile", "File", new {  Area = "", id = file.Id })">@file.FileName</a><br />
+            }
+
+            @Model.Inquiry.Notes
+        </td>
+        <td class="text-end">
+            @if (Model.State == MatchState.pending)
+            {
+                <a href="" data-receiverid="@Model.Inquiry.Project.BuyerId" data-buyername="@Model.Inquiry.Project.Buyer.Name" data-inquirynumber="@Model.Inquiry.InquiryNumber" data-portfolio="@Model.Inquiry.FirstPortfolioAsString" data-id="@Model.Id" class="btn btn-primary btn-messages float-start me-1 mb-1"><i class="fa fa-envelope"></i></a>
+                <div class="dropdown float-start">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Aktion
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item detail" href="@Url.Action("Detail", "Match", new { id = Model.Id })">Details</a></li>
+                        <li><a class="dropdown-item add-to-sales @(Model.Inquiry.IsCanceled ? "disabled" : "")" href="@Url.Action("AddToSales", new { id = Model.Id })">zum Angebotsmanger</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item revoke" href="@Url.Action("Revoke", new { id = Model.Id })">Match verwerfen</a></li>
+                    </ul>
+                </div>
+            }
+        </td>
+    </tr>
+}
+else if (Model.State == MatchState.revoked)
+{
+    <tr>
+        <td>@Model.Inquiry.Project.Buyer.Name</td>
+        <td>@Model.Inquiry.SelectedPortfolios.FirstOrDefault()</td>
+        <td>@Model.Inquiry.InquiryNumber</td>
+        <td>
+            @Model.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+            <small>@Model.Inquiry.DeadlineInfo</small>
+        </td>
+        <td class="revoke-reason">
+            @Model.RevokeReason.GetDescription() <br />
+            <small>@Model.RevokeReasonText</small>
+        </td>
+        <td>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+        <td class="text-end">
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Aktion
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item detail" href="" data-id="@Model.Id">Details</a></li>
+                    <li><a class="dropdown-item restore @(Model.Inquiry.IsCanceled ? "disabled" : "")" href="@Url.Action("Restore", new { id = Model.Id })">Wiederherstellen</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item delete" href="@Url.Action("Delete", new { id = Model.Id })">Endgültig löschen</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+}

@@ -1,0 +1,97 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.EditProfileViewModel
+
+@{
+    ViewBag.Title = "Benutzer-Profil bearbeiten";
+}
+
+<h1 class="h1 mb-1">Benutzer-Profil</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Benutzer-Profil bearbeiten</li>
+    </ol>
+</nav>
+
+<div class="flex-grow-1">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="card">
+            <div class="card-body">
+                @Html.LabelFor(model => model.Email, "E-Mail")
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", disabled = "disabled" })
+                </div>
+
+                @Html.LabelFor(model => model.Firstname, "Vorname")
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                </div>
+
+                @Html.LabelFor(model => model.Lastname, "Nachname")
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+                </div>
+
+                <div class="form-check">
+                    <label class="form-check-label">
+                        @Html.CheckBoxFor(m => m.ChangePassword, new { @class = "form-check-input password-change" })
+                        Passwort ändern?
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="password-change-inputs" style="display: none;">
+                    @Html.LabelFor(m => m.OldPassword, "Altes Passwort")
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control" })
+                    </div>
+
+                    @Html.LabelFor(m => m.NewPassword, "Neues Passwort")
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+                    </div>
+
+                    @Html.LabelFor(m => m.ConfirmPassword, "Bestätigung")
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer ">
+                @Html.ValidationSummary(true)
+
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('.password-change').prop("checked")) {
+                $(".password-change-inputs").show();
+            } else {
+                $(".password-change-inputs").hide();
+            }
+
+            $('.password-change').change(function () {
+
+                if ($(this).prop("checked")) {
+                    $(".password-change-inputs").slideDown();
+                } else {
+                    $(".password-change-inputs").slideUp();
+                }
+
+            });
+        });
+    </script>
+}

@@ -1,0 +1,95 @@
+﻿@model Comabit.UI.Areas.Authentication.Models.PermissionListViewModel
+
+@using Comabit.Helpers;
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery;
+
+@{
+    var antiforgeryToken = antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+@{
+    ViewBag.Title = "Berechtigungen für Rollen";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@ViewBag.Title</h4>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <table class="table">
+                            @{
+                                var permissionGroups = Model.Permissions.GroupBy(p => p.GroupName, (key, g) => new { GroupName = key, Permissions = g.ToList() });
+                            }
+
+                            <tbody>
+                                @{
+                                    foreach (var group in permissionGroups)
+                                    {
+                                        <tr>
+                                            <td class="align-text-top" style="width: 150px; padding-top: 22px;" rowspan="@(group.Permissions.Count + 1)">
+                                                <strong>@group.GroupName</strong>
+                                            </td>
+                                            <td class="align-text-top">
+                                                <small>Berechtigung</small>
+                                            </td>
+                                            @foreach (var role in Model.Roles.OrderByDescending(r => r.AssignedPermissions.Count))
+                                            {
+                                                <td><small><strong>@role.Name</strong></small></td>
+                                            }
+                                        </tr>
+                                        foreach (var permission in group.Permissions)
+                                        {
+                                            <tr>
+                                                <td>@permission.Description</td>
+                                                @foreach (var role in Model.Roles.OrderByDescending(r => r.AssignedPermissions.Count))
+                                                {
+                                                    <td>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input permission-switch" id="customSwitch_@(role.Id)_@(permission.Guid)"
+                                                                   @(role.HasPermission(permission.Id) ? "checked='checked'" : "") data-permission-guid="@permission.Guid" data-role-id="@role.Id">
+                                                            <label class="custom-control-label" for="customSwitch_@(role.Id)_@(permission.Guid)"></label>
+                                                        </div>
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+    $('.permission-switch').on('change', function () {
+        var permissionSwitch = $(this);
+
+        $.ajax({
+            url: '@Url.Action("SetPermission", "Permission")',
+            type: "POST",
+            data: {
+                __RequestVerificationToken: '@antiforgeryToken',
+                permissionGuid: permissionSwitch.data('permissionGuid'),
+                roleId: permissionSwitch.data('roleId'),
+                on: permissionSwitch.prop('checked')
+            },
+            success: function (response) {
+
+            },
+            error: function (er) {
+
+            }
+        });
+    });
+    </script>
+}

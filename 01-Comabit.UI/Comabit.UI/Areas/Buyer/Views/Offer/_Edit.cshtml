@@ -1,0 +1,49 @@
+﻿@model OfferViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.BL.Helpers.Enumerations;
+@using Comabit.DL.Data.Match;
+
+@using (Html.BeginForm("Edit", "Offer", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "modal-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.State)
+
+    <div class="modal-header">
+        <h5 class="modal-title">@ViewBag.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body m-3">
+        <p class="">
+            Soll das Angebot @Model.Number von @Model.Match.Seller.Name wirklich
+            @if (Model.State == OfferState.renew)
+            {
+                <text>zur Nachbesserung geschickt</text>
+            }
+            else
+            {
+                @Model.State.GetDescription()
+            }
+
+            werden?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">
+            @if (Model.State == OfferState.renew)
+            {
+                <text>Nachbesserung anfragen</text>
+            }
+            else if (Model.State == OfferState.ordered)
+            {
+                <text>Angebot annehmen</text>
+            }
+            else if (Model.State == OfferState.revoked)
+            {
+                <text>Angebot ablehnen</text>
+            }
+        </button>
+    </div>
+}

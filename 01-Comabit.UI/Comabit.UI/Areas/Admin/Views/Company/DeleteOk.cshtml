@@ -1,0 +1,25 @@
+﻿@model CompanyViewModel
+
+@using Comabit.UI.Areas.Admin.Models;
+
+@{
+    ViewBag.Title = "Firma und Benutzer Löschen erfolgreich";
+}
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Firma <strong>@Model.Name</strong> und die dazugehörigen Benutzer wurden erfolgreich gelöscht</h3>
+
+            @if (User.HasPermission(Permissions.CompanyList))
+            {
+                @Html.ActionLink("Zurück zur Übersicht", "Index", null, new { @class = "btn btn-link" })
+            }
+            else
+            {
+                @Html.ActionLink("Zurück zur Startseite", "Index", "Home", new { Area = "" }, new { @class = "btn btn-link" })
+            }
+        </div>
+    </div>
+</div>

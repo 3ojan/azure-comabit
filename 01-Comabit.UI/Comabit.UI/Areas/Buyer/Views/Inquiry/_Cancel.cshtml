@@ -1,0 +1,23 @@
+﻿@model InquiryViewModel
+
+@using Comabit.UI.Models.Match;
+
+@using (Html.BeginForm("Cancel", "Inquiry", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "modal-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="modal-header">
+        <h5 class="modal-title">Anfrage abbrechen</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body m-3">
+        <p class="">
+            Soll die Anfrage @Model.InquiryNumber @Model.Purepose wirklich abgebrochen werden?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zurück</button>
+        <button type="submit" class="btn btn-primary">Anfrage abbrechen</button>
+    </div>
+}

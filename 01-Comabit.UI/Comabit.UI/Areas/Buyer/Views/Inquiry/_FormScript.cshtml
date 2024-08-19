@@ -1,0 +1,88 @@
+﻿@model EditViewModel
+@using Comabit.UI.Areas.Buyer.Models.Inquiry;
+@using Comabit.DL.Data.Inquiry;
+
+<script>
+    $(document).ready(function () {
+        $("body").on("click", ".delete-file", function () {
+            var id = $(this).data("id");
+            $(".file-" + id).remove();
+            $(".delete-" + id).val(true);
+
+            return false;
+        });
+
+        var initPublishAt = function () {
+            if ($("#@Html.IdFor(m => m.PublishState)").val() == '@((int)PublishState.publishAt)') {
+                $(".publish-at").show();
+            }
+            else {
+                $(".publish-at").hide();
+                $(".publish-at").find("input").val("");
+            }
+        };
+
+        $("body").on("change", "#@Html.IdFor(m => m.PublishState)",function () {
+            initPublishAt();
+        });
+
+        initPublishAt();
+
+        flatpickr.localize(flatpickr.l10ns.de);
+
+        $(".datetimepicker").flatpickr({
+            enableTime: true,
+            altInput: true,
+            altFormat: "d.m.Y H:i",
+            dateFormat: "d.m.Y H:i",
+            allowInput: true,
+            time_24hr: true,
+            locale: "de"
+        });
+
+        $("body").on("change", ".form-check-input.category", function () {
+            var isChecked = $(this).is(":checked");
+
+            $(this).closest(".accordion").find("input[type=checkbox]").prop("checked", isChecked);
+
+            if (isChecked) {
+                $(this).closest(".accordion").find(".accordion-collapse").addClass("show");
+            }
+            else {
+                $(this).closest(".accordion").find(".accordion-collapse").removeClass("show");
+            }
+        });
+
+        $("body").on("change", ".trigger-matches-preview", function () {
+            var form = $("#InquiryForm");
+            var dataJson = form.serializeObject();
+
+            $.ajax({
+                url: "@Url.Action("MatchesPreview")",
+                type: 'POST',
+                data: dataJson,
+                success: function (result) {
+                    $(".matches-preview-container").html(result.html);
+                },
+                error: function (result) {
+                    $(".matches-preview-container").html('Es ist ein Fehler aufgetreten.');
+                }
+            });
+
+            return false;
+        });
+
+        $("body").on("change", ".match-exclusion", function () {
+            if (!$(this).is(":checked")) {
+                var hiddenfield = "<input type='hidden' class='excluded-seller' name='ExcludedSellerIds' value='" + $(this).data("id") + "'/>";
+
+                console.log($(this));
+
+                $(this).before(hiddenfield);
+            }
+            else {
+                $(this).prev(".excluded-seller").remove();
+            }
+        });
+    });
+</script>

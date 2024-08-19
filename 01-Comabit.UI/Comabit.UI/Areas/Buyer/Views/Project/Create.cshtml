@@ -1,0 +1,74 @@
+﻿@model CreateEditViewModel
+@using Comabit.UI.Areas.Buyer.Models.Project;
+
+@{
+    ViewBag.Title = "Projekt Anfrage erstellen";
+}
+
+<h1 class="h1 mb-1">Neue Anfrage</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Project")">Projekte</a></li>
+        <li class="breadcrumb-item active">Neues Projekt erstellen</li>
+    </ol>
+</nav>
+
+@using (Html.BeginForm("Create", "Project", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Projekt</h5>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true)
+
+            <div class="row mb-3">
+                <div class="col col-12">
+                    @Html.LabelFor(m => m.SelectedProject, "Projektauswahl", new { @class = "label" })
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.SelectedProject, new SelectList(Model.AvailableProjects, "Id", "ProjectName"), "Neues Projekt anlegen", new { @class = "form-select" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-form">
+                @if (!Model.SelectedProject.HasValue)
+                {
+                    @await Html.PartialAsync("_ProjectForm", Model)
+                }
+                else
+                {
+                    @await Html.PartialAsync("_ProjectDetail", Model.AvailableProjects.Where(p => p.Id == Model.SelectedProject).FirstOrDefault())
+                }
+            </div>
+        </div>        
+    </div>
+}
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $("body").on("change", "#@Html.IdFor(m => m.SelectedProject)",function () {
+                var form = $("form", document);
+                var dataJson = form.serializeObject();
+
+                $.ajax({
+                    url: "@Url.Action("GetProjectDetails")",
+                    type: 'POST',
+                    data: dataJson,
+                    success: function (result) {
+                        $(".project-form").html(result.html);
+                    },
+                    error: function (result) {
+                        $("form").html('Es ist ein Fehler aufgetreten.');
+                    }
+                });
+            });
+        });
+    </script>
+}

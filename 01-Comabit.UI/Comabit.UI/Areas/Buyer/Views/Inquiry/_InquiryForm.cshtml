@@ -1,0 +1,150 @@
+﻿@model EditViewModel
+
+@using Comabit.UI.Areas.Buyer.Models.Inquiry;
+@using Comabit.DL.Data.Inquiry;
+@using Comabit.BL.Helpers.Enumerations;
+
+<div class="row">
+    <div class="col col-9">
+        <div class="row mb-3 border-top pt-3">
+            <h5><strong>Kategorieauswahl</strong></h5>
+            @Html.ValidationMessageFor(m => m.PortfolioAreas, "", new { @class = "text-danger" })
+            <div class="row">
+                @Html.EditorFor(m => m.PortfolioAreas)
+            </div>
+        </div>
+
+        <div class="row mb-3 border-bottom pb-3">
+            <div class="col col-12">
+                @Html.LabelFor(m => m.AddidtionalTags, "Zusätzliche Schlagwörter", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.AddidtionalTags, new { @class = "form-control w-100 trigger-matches-preview" })
+                    @Html.ValidationMessageFor(m => m.AddidtionalTags, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-8">
+                @Html.LabelFor(m => m.Purepose, "Betreff*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.Purepose, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.Purepose, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-4">
+                @Html.LabelFor(m => m.Deadline, "Bieterfrist*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.Deadline, new { @class = "form-control datetimepicker w-100" })
+                    @Html.ValidationMessageFor(m => m.Deadline, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col col-4">
+                @Html.LabelFor(m => m.DeadlineInfo, "Bieterfrist Info", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.DeadlineInfo, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.DeadlineInfo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col col-4">
+                @Html.LabelFor(m => m.DeliveryDate, "Liefertermin*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "form-control datetimepicker w-100" })
+                    @Html.ValidationMessageFor(m => m.DeliveryDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-4">
+                @Html.LabelFor(m => m.DeliveryStreet, "Liefer-Straße*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.DeliveryStreet, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.DeliveryStreet, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col col-4">
+                @Html.LabelFor(m => m.DeliveryPostalCode, "Liefer-Plz*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.DeliveryPostalCode, new { @class = "form-control w-100 trigger-matches-preview" })
+                    @Html.ValidationMessageFor(m => m.DeliveryPostalCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col col-4">
+                @Html.LabelFor(m => m.DeliveryCity, "Liefer-Ort*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.DeliveryCity, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.DeliveryCity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-4">
+                @Html.LabelFor(m => m.DeliveryInfo, "Lieferangaben", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextAreaFor(m => m.DeliveryInfo, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.DeliveryInfo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col col-4">
+                @Html.LabelFor(m => m.Notes, "Notizen", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextAreaFor(m => m.Notes, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.Notes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col col-4">
+                @Html.LabelFor(m => m.Requirements, "Bedarf", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextAreaFor(m => m.Requirements, new { @class = "form-control w-100" })
+                    @Html.ValidationMessageFor(m => m.Requirements, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="inquiry-files">
+            @await Html.PartialAsync("_InquiryFiles", Model)
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-12">
+                @Html.LabelFor(m => m.UploadedFiles, "Datei hinzufügen", new { @class = "label" })
+                @Html.ValidationMessageFor(m => m.UploadedFiles, "", new { @class = "text-danger" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.UploadedFiles, new { @class = "form-control upload-file-input", type = "file", multiple = "multiple", accept = "application/pdf" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-6">
+                @Html.LabelFor(m => m.PublishState, "Anfragestatus*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.DropDownListFor(x => x.PublishState, new SelectList(Enum.GetValues<PublishState>().Select(s => new { Text = s.GetDescription(), Value = (int)s }), "Value", "Text"), new { @class = "form-select w-100 inquiry-publish-state" })
+                    @Html.ValidationMessageFor(m => m.PublishState, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col col-6 publish-at">
+                @Html.LabelFor(m => m.PublishedAt, "Veröffentlichen am*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.PublishedAt, new { @class = "form-control w-100 datetimepicker" })
+                    @Html.ValidationMessageFor(m => m.PublishedAt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Speichern</button>
+        <a href="@Url.Action("Index", "Inquiry", new { Area = Roles.Buyer, SelectedProjectId = Model.ProjectId })" class="btn btn-link">Zurück zum Projekt</a>
+    </div>
+    <div class="col col-3">
+        <div class="matches-preview-container">
+            @(await Html.PartialAsync("_MatchesPreview", Model.MatchesPreview))
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@model List<RoleListViewModel>
+@using Comabit.UI.Areas.Authentication.Models;
+
+@{
+    ViewBag.Title = "Benutzerrollen";
+}
+
+
+<div class="flex-grow-1">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Benutzerrollen</h4>
+            <a href="@Url.Action("Create")" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Neue Benutzerrolle</a>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <table class="table">
+                    <thead class="text-primary">
+                        <tr>
+                            <th>
+                            </th>
+                            <th>
+                                Bezeichnung
+                            </th>
+                            <th>
+                                Beschreibung
+                            </th>
+                            <th class="text-right">
+                                Aktionen
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int nr = 0;
+
+                            foreach (RoleListViewModel role in Model.OrderBy(m => m.Name))
+                            {
+                                nr += 1;
+
+                                <tr>
+                                    <td>@nr</td>
+                                    <td>
+                                        @role.Name
+                                    </td>
+                                    <td>
+                                        @role.Description
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@Url.Action("Edit", "RolesAdmin", new { id = role.Id })" class="btn btn-sm btn-icon btn-primary" data-id="@role.Id">bearbeiten</a>
+                                        <a href="@Url.Action("Delete", "RolesAdmin", new { id = role.Id })" class="btn btn-sm btn-icon btn-danger" data-id="@role.Id">löschen</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

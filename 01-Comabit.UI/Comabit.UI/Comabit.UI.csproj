@@ -1,0 +1,313 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>aspnet-Comabit-51AE1DCF-2E3B-4E68-AB73-6F8DCB5EB3C8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Buyer\Views\Buyer\**" />
+    <Compile Remove="Areas\Identity\**" />
+    <Compile Remove="Areas\VK\**" />
+    <Compile Remove="Log\**" />
+    <Content Remove="Areas\Buyer\Views\Buyer\**" />
+    <Content Remove="Areas\Identity\**" />
+    <Content Remove="Areas\VK\**" />
+    <Content Remove="Log\**" />
+    <EmbeddedResource Remove="Areas\Buyer\Views\Buyer\**" />
+    <EmbeddedResource Remove="Areas\Identity\**" />
+    <EmbeddedResource Remove="Areas\VK\**" />
+    <EmbeddedResource Remove="Log\**" />
+    <None Remove="Areas\Buyer\Views\Buyer\**" />
+    <None Remove="Areas\Identity\**" />
+    <None Remove="Areas\VK\**" />
+    <None Remove="Log\**" />
+    <None Remove="App_Data\src\adminkitpro\static\js\app.js.map" />
+    <None Remove="App_Data\src\adminkitpro\static\js\app.js" />
+    <None Remove="Areas\Buyer\Views\Project\Project\" />
+    <None Remove="Areas\Buyer\Models\Project\" />
+    <None Remove="Models\File\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="AutoMapper\CompanyProfile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Buyer\Views\Shared\_Messages.cshtml" />
+    <Content Remove="Areas\Buyer\Views\Shared\_Notifications.cshtml" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.min.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.rtl.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.rtl.css.map" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.rtl.min.css" />
+    <Content Remove="C:\Users\eaksakal\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.rtl.min.css.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".config\dotnet-tools.json" />
+    <Content Include="App_Data\geo\plz_einwohner.csv" />
+    <Content Include="App_Data\geo\zuordnung_plz_ort_landkreis.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Devart.Data.PostgreSql.EFCore" Version="7.20.1944" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.17.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SlowCheetah" Version="3.2.26">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
+    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.13.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\02-Comabit-BL\Comabit.BL\Comabit.BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="app.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </Content>
+    <Content Update="Areas\Seller\Views\Match\_Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\EditorTemplates\SubCategoryViewModel %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Views\Shared\EditorTemplates\InquiryFileViewModel.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Offer\_Detail.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\ProjectInquiry\_Create.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\_Create.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_AddNewProject.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_Create.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_InquiryDetail.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_InquiryFiles.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_InquiryOffersDetail.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_PortfolioAreasReadOnly.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\_ProjectDetail.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\Create.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\Edit.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\EditProject.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\Index.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\InquiryOffers.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Backup\ProjectDetail.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Edit.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\Edit %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Project\_ProjectForm.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\Create.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\_ProjectForm.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\_InquiryForm.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\Create %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\Edit.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\_Detail.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\_ProjectDetail %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Inquiry\_FormScript.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Offer\_Offer %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Offer\_Message %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Offer\_Detail %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Areas\Buyer\Views\Offer\_Message.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Views\Shared\_Messages %28Kopie%29.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+    <Content Update="Views\Shared\_ModalChat.cshtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="App_Data\src\adminkitpro\static\js\app.js">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\js\app.js.map">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\img\icons\brand-1.svg">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\img\flags\mr.png">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\src\scss\1-variables\_comabit.scss">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\src\scss\dark.scss">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\img\flags\ht.png">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\img\icons\brand-2.svg">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\img\flags\rw.png">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\static\img\flags\mp.png">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\src\scss\dark %28copy%29.scss">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="App_Data\src\adminkitpro\src\scss\6-customizing\_breadcrumb.scss">
+      <TransformOnBuild></TransformOnBuild>
+    </None>
+    <None Update="Areas\Buyer\Views\Project\Editcshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </None>
+    <None Update="Areas\Buyer\Views\Project\Editc.shtml">
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Buyer\Models\Project\" />
+    <Folder Include="Models\File\" />
+  </ItemGroup>
+</Project>

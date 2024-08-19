@@ -1,0 +1,25 @@
+﻿@model Comabit.UI.Models.Portfolio.AreaViewModel
+
+@{
+    bool opened = Model.PortfolioCategories.Any(c => c.Checked);
+}
+
+<div class="col col-6">
+    <div class="accordion">
+        <h2 class="accordion-header" id="PortfolioArea-Heading-@Model.Id.ToString("N")">
+            <button class="shadow-none border-bottom-1 focus:border-0 bg-transparent accordion-button @(opened ? "" : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#PortfolioArea-@Model.Id.ToString("N")" aria-expanded="@(opened ? "true" : "false")" aria-controls="PortfolioArea-@Model.Name.Trim()">
+                @Model.Name
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.Name)
+                @Html.HiddenFor(m => m.ShowAdditionalTags)
+            </button>
+        </h2>
+        <div id="PortfolioArea-@Model.Id.ToString("N")" class="accordion-collapse @(opened ? "" : "collapse")" aria-labelledby="PortfolioArea-Heading-@Model.Id.ToString("N")">
+            <div class="accordion-body">
+                <div class="row">
+                    @Html.EditorFor(m => m.PortfolioCategories)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

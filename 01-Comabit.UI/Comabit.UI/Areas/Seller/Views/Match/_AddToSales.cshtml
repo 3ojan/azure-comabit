@@ -1,0 +1,28 @@
+﻿@model MatchViewModel
+
+@using Comabit.UI.Models.Match;
+
+@{
+    ViewBag.Title = "Zum Salesmanager";
+}
+
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewBag.Title</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body m-3">
+    <p class="mb-0">
+        Soll die Anfrage @Model.Inquiry.InquiryNumber von @Model.Inquiry.Project.Buyer.Name zum Angebotsmanager?
+    </p>
+</div>
+<div class="modal-footer">
+    @using (Html.BeginForm("AddToSales", "Match", null, FormMethod.Post, true, new { @class = "modal-form", id = "AddToSalesForm", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">zum Angebotsmanager</button>
+    }
+</div>

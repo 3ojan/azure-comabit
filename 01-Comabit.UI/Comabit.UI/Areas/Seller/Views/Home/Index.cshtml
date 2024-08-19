@@ -1,0 +1,463 @@
+﻿@model SellerHomeIndexViewModel
+
+@using Comabit.UI.Areas.Seller.Models.Home
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+
+
+@{
+    ViewBag.Title = "Dashboard";
+    string NewInquiriesSinceLastWeekPercentClass = Model.NewInquiriesSinceLastWeekPercent >= 0 ? "text-success" : "text-danger";
+    string OpenOffersSinceLastWeekPercentClass = Model.OpenOffersSinceLastWeekPercent >= 0 ? "text-success" : "text-danger";
+    string CommissionsSinceLastWeekPercentClass = Model.CommissionsSinceLastWeekPercent >= 0 ? "text-success" : "text-danger";
+}
+
+@Html.HiddenFor(m => m.InquiriesTrendJson)
+@Html.HiddenFor(m => m.CommissionByMonthJson)
+<h1 class="h1 mb-1">Übersicht</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Das Wichtigste auf einen Blick</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-xl-6 col-xxl-5 d-flex">
+        <div class="w-100">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Neue Anfragen</h5>
+                                </div>
+                            </div>
+                            <h2 class="mt-1 mb-3">@Model.CountNewInquiries</h2>
+                            <div class="mb-0">
+                                <span class="@NewInquiriesSinceLastWeekPercentClass"> <i class="mdi mdi-arrow-bottom-right"></i> @Model.NewInquiriesSinceLastWeekPercent % </span>
+                                <span class="text-muted">seit letzter Woche</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Offene Angebote</h5>
+                                </div>
+                            </div>
+                            <h2 class="mt-1 mb-3">@Model.CountOpenOffers</h2>
+                            <div class="mb-0">
+                                <span class="@OpenOffersSinceLastWeekPercentClass"> <i class="mdi mdi-arrow-bottom-right"></i> @Model.OpenOffersSinceLastWeekPercent % </span>
+                                <span class="text-muted">seit letzter Woche</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col mt-0">
+                                    <h5 class="card-title">Beauftragungen</h5>
+                                </div>
+                            </div>
+                            <h2 class="mt-1 mb-3">@Model.CountCommissions</h2>
+                            <div class="mb-0">
+                                <span class="@CommissionsSinceLastWeekPercentClass"> <i class="mdi mdi-arrow-bottom-right"></i> @Model.CommissionsSinceLastWeekPercent % </span>
+                                <span class="text-muted">seit letzter Woche</span>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Potential</h5>
+                                    </div>
+                                </div>
+                                <h2 class="mt-1 mb-3">250 <small>zusätzliche Anfragen</small></h2>
+                                <div class="mb-0">
+                                    <span class="text-info"> <i class="mdi mdi-arrow-bottom-right"></i> +46,65% </span>
+                                    <span class="text-muted">wenn Sie ihr Liefergebiet um 100km erweitern</span>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-xxl-7">
+        <div class="card flex-fill w-100">
+            <div class="card-header">
+
+                <h5 class="card-title mb-0">Anfragen Trend</h5>
+            </div>
+            <div class="card-body py-3">
+                <div class="chart chart-sm">
+                    <canvas id="ChartInquiriesTrend"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Neueste Anfragen</h5>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Firma</th>
+                        <th>Kategorie</th>
+                        <th>Anf.-Nr.</th>
+                        <th>Bieterfrist</th>
+                        <th>Matchdatum</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (MatchViewModel match in Model.Matches)
+                    {
+                        <tr>
+                            <td>@match.Inquiry.Project.Buyer.Name</td>
+                            <td>@match.Inquiry.SelectedPortfolios.FirstOrDefault()</td>
+                            <td>@match.Inquiry.InquiryNumber</td>
+                            <td>
+                                @match.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+                                <small>@match.Inquiry.DeadlineInfo</small>
+                            </td>
+                            <td>@match.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td class="text-end">
+                                @if (match.State == MatchState.pending)
+                                {
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Aktion
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item detail" href="@Url.Action("Detail", "Match", new { id = match.Id })">Details</a></li>
+                                            <li><a class="dropdown-item add-to-sales" href="@Url.Action("AddToSales", "Match", new { id = match.Id })">nach Salesmanager</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item revoke" href="@Url.Action("Revoke", "Match", new { id = match.Id })">Match verwerfen</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+        <div class="card flex-fill w-100">
+            <div class="card-header">
+
+                <h5 class="card-title mb-0">Monatliche Beauftragungen</h5>
+            </div>
+            <div class="card-body d-flex w-100">
+                <div class="align-self-center chart chart-lg">
+                    <canvas id="ChartCommissionByMonth"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @*<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+
+                    <h5 class="card-title mb-0">Matches nach Land</h5>
+                </div>
+                <div class="card-body px-4">
+                    <div id="world_map" style="height:350px;"></div>
+                </div>
+            </div>
+        </div>*@
+    <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+        <div class="card flex-fill">
+            <div class="card-header">
+
+                <h5 class="card-title mb-0">Kalender</h5>
+            </div>
+            <div class="card-body d-flex">
+                <div class="align-self-center w-100">
+                    <div class="chart">
+                        <div id="datetimepicker-dashboard"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("body").on("change", ".filter-inquiry", function () {
+                location.href = "@Url.Action("Index", "Offer", new { }, Context.Request.Scheme)?SelectedInquiryId=" + $(this).val();
+            });
+
+        $('body').on('click', '.detail', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").replaceWith(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.add-to-sales', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function () {
+                btn.closest("tr").remove();
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.revoke', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").remove();
+                $("table.revoked-matches tbody").append(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        var submit = function (url) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function () {
+                },
+                success: function (result) {
+                    $('#Modal').modal("show");
+                    $('#Modal .modal-content').html(result.html);
+                },
+                error: function (result) {
+                    $('#Modal .modal-content').html('Es ist ein Fehler aufgetreten.');
+                }
+            });
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var inquiriesTrendJson = $.parseJSON($('#InquiriesTrendJson').val());
+            var lablesstrings = inquiriesTrendJson.Labels;
+            var dataarrays = inquiriesTrendJson.Data;
+            var yAxisStepsize = inquiriesTrendJson.yAxisStepSize;
+            var ctx = document.getElementById("ChartInquiriesTrend").getContext("2d");
+            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+            // Line chart
+            new Chart(document.getElementById("ChartInquiriesTrend"), {
+                type: "line",
+                data: {
+                    labels: lablesstrings,
+                    datasets: [{
+                        label: "Anzahl Anfragen",
+                        fill: true,
+                        backgroundColor: gradient,
+                        borderColor: window.theme.primary,
+                        data: dataarrays[0]
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        intersect: false
+                    },
+                    hover: {
+                        intersect: true
+                    },
+                    plugins: {
+                        filler: {
+                            propagate: false
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            reverse: true,
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: yAxisStepsize
+                            },
+                            display: true,
+                            borderDash: [3, 3],
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var commissionByMonthJson = $.parseJSON($('#CommissionByMonthJson').val());
+            var lablesstrings = commissionByMonthJson.Labels;
+            var dataarrays = commissionByMonthJson.Data;
+            var yAxisStepsize = commissionByMonthJson.yAxisStepSize;
+            // Bar chart
+            new Chart(document.getElementById("ChartCommissionByMonth"), {
+                type: "bar",
+                data: {
+                    labels: lablesstrings,
+                    datasets: [{
+                        label: "Anzahl Beauftragungen",
+                        backgroundColor: window.theme.primary,
+                        borderColor: window.theme.primary,
+                        hoverBackgroundColor: window.theme.primary,
+                        hoverBorderColor: window.theme.primary,
+                        data: dataarrays[0],
+                        barPercentage: .75,
+                        categoryPercentage: .5
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: false
+                            },
+                            stacked: false,
+                            ticks: {
+                                stepSize: yAxisStepsize
+                            }
+                        }],
+                        xAxes: [{
+                            stacked: false,
+                            gridLines: {
+                                color: "transparent"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var markers = [{
+                coords: [31.230391, 121.473701],
+                name: "Shanghai"
+            },
+            {
+                coords: [28.704060, 77.102493],
+                name: "Delhi"
+            },
+            {
+                coords: [6.524379, 3.379206],
+                name: "Lagos"
+            },
+            {
+                coords: [35.689487, 139.691711],
+                name: "Tokyo"
+            },
+            {
+                coords: [23.129110, 113.264381],
+                name: "Guangzhou"
+            },
+            {
+                coords: [40.7127837, -74.0059413],
+                name: "New York"
+            },
+            {
+                coords: [34.052235, -118.243683],
+                name: "Los Angeles"
+            },
+            {
+                coords: [41.878113, -87.629799],
+                name: "Chicago"
+            },
+            {
+                coords: [51.507351, -0.127758],
+                name: "London"
+            },
+            {
+                coords: [40.416775, -3.703790],
+                name: "Madrid "
+            }
+            ];
+            var map = new jsVectorMap({
+                map: "world",
+                selector: "#world_map",
+                zoomButtons: true,
+                markers: markers,
+                markerStyle: {
+                    initial: {
+                        r: 9,
+                        strokeWidth: 7,
+                        stokeOpacity: .4,
+                        fill: window.theme.primary
+                    },
+                    hover: {
+                        fill: window.theme.primary,
+                        stroke: window.theme.primary
+                    }
+                },
+                zoomOnScroll: false
+            });
+            window.addEventListener("resize", () => {
+                map.updateSize();
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var date = new Date(Date.now()); //  - 5 * 24 * 60 * 60 * 1000
+            var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+            document.getElementById("datetimepicker-dashboard").flatpickr({
+                inline: true,
+                prevArrow: "<span title=\"Vorheriger Monat\">&laquo;</span>",
+                nextArrow: "<span title=\"Nächster Monat\">&raquo;</span>",
+                defaultDate: defaultDate,
+                weekNumbers: true,
+                locale: "de"
+            });
+        });
+    </script>
+}

@@ -1,0 +1,37 @@
+﻿@model MatchViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+
+<tr>
+    <td>@Model.Inquiry.Project.Buyer.Name</td>
+    <td>@Model.Inquiry.SelectedPortfolios.FirstOrDefault()</td>
+    <td>@Model.Inquiry.InquiryNumber</td>
+    <td>
+        @Model.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+        <small>@Model.Inquiry.DeadlineInfo</small>
+    </td>
+    <td>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+    <td>
+        @if (Model.State == MatchState.renew)
+        {
+            <span class="badge badge-info-light">Nachbesserung erwünscht</span>
+        }
+        else
+        {
+            <span class="badge badge-primary-light">@Model.State.GetDescription()</span>
+        }
+    </td>
+    <td>@Model.ScoreBadge</td>
+    <td class="text-end">
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Aktion
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@Url.Action("Edit", new { id = Model.Id })">Details / Angebot erstellen</a></li>
+                <li><a class="dropdown-item discard-match" data-id="@Model.Id" href="@Url.Action("Revoke", new { id = Model.Id })">Anfrage verwerfen</a></li>
+            </ul>
+        </div>
+    </td>
+</tr>

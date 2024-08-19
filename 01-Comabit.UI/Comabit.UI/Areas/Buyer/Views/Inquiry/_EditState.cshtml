@@ -1,0 +1,41 @@
+﻿@model InquiryViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Inquiry; 
+@using Comabit.BL.Helpers.Enumerations;
+
+@using (Html.BeginForm("EditState", "Inquiry", new { Area = Roles.Buyer }, FormMethod.Post, true, new { @class = "modal-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="modal-header">
+        <h5 class="modal-title">Anfrage @Model.InquiryNumber @Model.Purepose</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body m-3">
+        <div class="row mb-3">
+            <div class="col col-6">
+                @Html.LabelFor(m => m.PlacingState, "Vergabe Status*", new { @class = "label" })
+                <div class="input-group">
+                    @Html.DropDownListFor(x => x.PlacingState, new SelectList(Enum.GetValues<PlacingState>().Select(s => new { Text = s.GetDescription(), Value = (int)s }), "Value", "Text"), new { @class = "form-select w-100" })
+                    @Html.ValidationMessageFor(m => m.PlacingState, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col col-12">
+                <label class="form-check">
+                    @Html.CheckBoxFor(m => m.IsClosed, new { @class = "form-check-input" })
+                    <span class="form-check-label">
+                        geschlossen?
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </div>
+}

@@ -1,0 +1,23 @@
+﻿@model Comabit.UI.Models.File.FileViewModel
+
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.Delete, new { @class = "delete-" + Model.Id })
+
+<tr class="file-@Model.Id">
+    <td>
+        <a href="@Url.Action("DownloadFile", "File", new {  Area = "", id = Model.Id })" class="nav-link link-dark" title="download">
+            <svg class="bi" width="20" height="20" fill="currentColor">
+                <use xlink:href="@Url.Content("~/lib/bootstrap-icons/bootstrap-icons.svg")#file-arrow-down" />
+            </svg>
+
+            @Model.FileName
+        </a>
+    </td>
+    <td>@Model.MimeType</td>
+    <td>@(Model.Size / 1024) (kb)</td>
+    <td>
+        <a class="nav-link link-dark delete-file" data-id="@Model.Id" title="löschen">
+            <svg class="bi" width="20" height="20" fill="currentColor"><use xlink:href="@Url.Content("~/lib/bootstrap-icons/bootstrap-icons.svg")#trash" /></svg>
+        </a>
+    </td>
+</tr>

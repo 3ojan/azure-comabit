@@ -1,0 +1,35 @@
+﻿@model ICollection<MatchViewModel>
+
+@using Comabit.UI.Models.Match;
+
+@{
+    ViewBag.Title = "Matches";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewBag.Title</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body m-3">
+    
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Firma</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MatchViewModel match in Model)
+            {
+                <tr>
+                    <td>@match.Seller.Name</td>
+                    <td>@Html.Raw(match.ScoreBadge)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

@@ -1,0 +1,62 @@
+﻿@model OfferViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.DL.Data.Match;
+@using Comabit.BL.Helpers.Enumerations;
+
+<tr class="offer-@Model.Id cursor-pointer detail" data-id="@Model.Id" data-receiverId="@Model.Match.SellerId">
+    <td>@Model.Match.Inquiry.InquiryNumber</td>
+    <td>
+        @Model.Match.Inquiry.Project.ProjectName<br />
+        @Model.Match.Inquiry.Purepose
+    </td>
+    <td>
+        @foreach (var group in Model.Match.Inquiry.SelectedPortfolios.GroupBy(s => s.Key))
+        {
+            <strong>@group.Key -</strong>
+
+            foreach (var portfolio in group)
+            {
+                <strong>@portfolio.Value</strong><br />
+            }
+
+            <br />
+        }
+    </td>
+    <td>@Model.Match.Seller.Name</td>
+    <td>
+        <span class="badge @Model.Match.Inquiry.DeadlineStateBadgeClass">@Model.Match.Inquiry.DeadlineState.GetDescription()</span><br />
+        @Model.Match.Inquiry.Deadline.ToString("dd.MM.yyyy")<br />
+        <small class="text-sm">@Model.Match.Inquiry.DeadlineInfo</small>
+    </td>
+    <td><small class="text-sm">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</small></td>
+    <td>@Model.Text</td>
+    <td><a href="@Url.Action("DownloadFile", "File", new { area = "", id = Model.FileId})" title="@Model.File.FileName"><i class="far fa-file-pdf text-lg"></i></a></td>
+    <td>
+        @Model.State.GetDescription()
+    </td>
+    <td>
+        @Model.Match.ScoreBadge
+    </td>
+    <td>
+        @if (!string.IsNullOrEmpty(Model.BuyerNote))
+        {
+            <i class="fas fa-sticky-note" title="@Model.BuyerNote"></i>
+        }
+    </td>
+    <td class="text-end">
+        <a href="" data-receiverId="@Model.Match.SellerId" data-sellername="@Model.Match.Seller.Name" data-inquirynumber="@Model.Match.Inquiry.InquiryNumber" data-portfolio="@Model.Match.Inquiry.FirstPortfolioAsString" data-offerid="@Model.Id" data-id="@Model.Match.Id" class="btn btn-primary btn-messages float-start me-1 mb-1"><i class="fa fa-envelope"></i></a>
+        <div class="dropdown float-start">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Aktion
+            </button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item detail" data-id="@Model.Id" data-receiverid="@Model.Match.SellerId">Details</button></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item edit-offer" href="@Url.Action("Edit", "Offer", new { id = Model.Id, state = OfferState.ordered })">Angebot annehmen</a></li>
+                <li><a class="dropdown-item renew-offer" href="@Url.Action("Edit", "Offer", new { id = Model.Id, state = OfferState.renew })">Nachbesserung anfordern</a></li>
+                <li><a class="dropdown-item edit-offer" href="@Url.Action("Edit", "Offer", new { id = Model.Id, state = OfferState.revoked })">Angebot ablehnen</a></li>
+            </ul>
+        </div>
+    </td>
+</tr>

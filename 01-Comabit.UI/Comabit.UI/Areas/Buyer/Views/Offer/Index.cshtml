@@ -1,0 +1,261 @@
+﻿@model IndexViewModel
+
+@using Comabit.UI.Models.Match;
+@using Comabit.UI.Areas.Buyer.Models.Offer;
+@using Comabit.DL.Data.Match;
+
+@{
+    ViewBag.Title = "Angebote";
+}
+
+
+<h1 class="h1 mb-1">Angebote</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Start</a></li>
+        <li class="breadcrumb-item active">Eingegangene Angebote</li>
+    </ol>
+</nav>
+
+<div class="mb-3 d-flex">
+    <div class="me-3">
+        @Html.DropDownListFor(m => m.SelectedProjectId, new List<SelectListItem>(Model.Projects.Select(i => new SelectListItem() { Value = i.Id.ToString(), Text = $"{i.ProjectName}", Selected = Model.SelectedProjectId == i.Id })), "Alle Projekte", new { @class = "form-select w-100 filter-project" })
+    </div>
+    <div class="">
+        @Html.DropDownListFor(m => m.SelectedInquiryId, new List<SelectListItem>(Model.Inquiries.Select(i => new SelectListItem() { Value = i.Id.ToString(), Text = $"Nr. {i.InquiryNumber} {i.Purepose}, {i.Project.ProjectName}" })), "Alle Anfragen", new { @class = "form-select w-100 filter-inquiry" })
+    </div>
+</div>
+
+<div class="tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" data-bs-toggle="tab" data-bs-target="#All">Alle Angebote</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#Active">laufende Angebote</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#Revoked">abgelehnte Angebote</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="All" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Offers", Model.Offers))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Active" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Offers", Model.Offers.Where(m => m.State == OfferState.pending).ToList()))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Revoked" role="tabpanel">
+            <div class="flex-grow-1">
+                <div class="card">
+                    <div class="card-body">
+                        @(await Html.PartialAsync("_Offers", Model.Offers.Where(m => m.State == OfferState.revoked || m.State == OfferState.renew).ToList()))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+@(await Html.PartialAsync("_ModalChat"))
+
+@section Scripts {
+    <script>
+        $("body").on("change", ".filter-inquiry", function () {
+            location.href = "@Url.Action("Index", "Offer", new { }, Context.Request.Scheme)?SelectedInquiryId=" + $(this).val() + "&SelectedProjectId=" + $(".filter-project").val();
+        });
+
+        $("body").on("change", ".filter-project", function () {
+            location.href = "@Url.Action("Index", "Offer", new { }, Context.Request.Scheme)?SelectedProjectId=" + $(this).val();
+        });
+
+        $('body').on('click', '.detail', function () {
+            var btn = $(this);
+            var url = "@Url.Action("Detail", "Offer")/" + btn.data("id");
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").replaceWith(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.edit-offer', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").remove();
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.renew-offer', function () {
+            var url = $(this).attr("href");
+            var btn = $(this);
+
+            $.fn.submitCallback = function (html) {
+                btn.closest("tr").replaceWith(html);
+            };
+
+            submit(url);
+
+            return false;
+        });
+
+        $('body').on('click', '.btn-messages', function () {
+            var match = $(this);
+            currentMatch = match;
+
+            $.ajax({
+                url: '@Url.Action("AllMessagesForMatch", "Message", new { Area = "" })',
+                type: 'GET',
+                data: {
+                    matchId: match.data('id'),
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#chat-messages').empty().html('Lade Nachrichten...');
+                },
+                success: function (result) {
+                    $('#chat-messages').empty();
+
+                    $.each(result, function (idx, message) {
+                        $('#chat-messages').append(getChatMessageHtml(message));
+                    });
+
+                    $('#ModalChat .detail').data('id', match.data('offerid'));
+                    $('#ModalChat #add-message-form').data('id', match.data('id'));
+                    $('#ModalChat #add-message-form').data('receiverid', match.data('receiverid'));
+
+                    $('#ModalChat .modal-title').text(match.data('sellername') + " / Anfrage: " + match.data('inquirynumber') + " / " + match.data('portfolio'));
+
+                    $('#ModalChat').modal("show");
+                },
+                error: function (request, error) {
+
+                }
+            });
+
+            return false;
+        });
+
+        $('body').on('submit', '#add-message-form', function () {
+            var matchId = $(this).data('id');
+            var messageText = stripHtml($('#message-input').val());
+            var receiverId = $(this).data('receiverid');
+
+            if ($('#message-input').val() === '') return false;
+
+            $.ajax({
+                url: '@Url.Action("AddMessage", "Message", new { Area = "" })',
+                type: 'POST',
+                data: {
+                    matchId: matchId,
+                    text: messageText,
+                },
+                dataType: 'json',
+                success: function (newMessage) {
+                    var chatMessages = $('#chat-messages');
+
+                    chatMessages.append(getChatMessageHtml(newMessage));
+
+                    chatMessages.animate({ scrollTop: chatMessages.prop("scrollHeight") }, 500);
+
+                    $('#message-input').val("").focus();
+
+                    messageHubConnection.send("SendMatchMessage", receiverId, matchId, newMessage.id);
+                },
+                error: function (request, error) {
+
+                }
+            });
+
+            return false;
+        });
+
+        var submit = function (url) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function () {
+                },
+                success: function (result) {
+                    $('#Modal').modal("show");
+                    $('#Modal .modal-content').html(result.html);
+                },
+                error: function (result) {
+                    $('#Modal .modal-content').html('Es ist ein Fehler aufgetreten.');
+                }
+            });
+        };
+
+        getMessage = function (matchId, messageId) {
+            $.ajax({
+                url: '@Url.Action("GetMatchChatForBuyer", "Message", new { Area = "" })',
+                type: 'GET',
+                data: {
+                    matchId: matchId,
+                    messageId: messageId
+                },
+                dataType: 'json',
+                success: function (matchChat) {
+                    $('#chat-messages').append(getChatMessageHtml(matchChat.newestMessage));
+
+                    var chatMessages = $('#chat-messages');
+                    var firstUnreadMessage = $('.chat-message.unread').first();
+
+                    if (firstUnreadMessage.length == 1) {
+                        chatMessages.animate({ scrollTop: chatMessages.scrollTop() + firstUnreadMessage.position().top - 100 }, 500);
+                    } else {
+                        chatMessages.animate({ scrollTop: chatMessages.prop("scrollHeight") }, 500);
+                    }
+
+                    $('.unread-badge', currentMatch).addClass('d-none');
+                },
+                error: function (request, error) {
+
+                }
+            });
+        }
+
+        $(document).on("DOMContentLoaded", function () {
+            messageHubConnection.on('ReceiveMatchMessage', function (matchId, messageId) {
+                var currentMatchId = currentMatch.data("id");
+
+                if (currentMatchId == matchId) {
+                    getMessage(matchId, messageId);
+                }
+                //else {
+                //    updateMatchChat(matchId, messageId);
+                //}
+            });
+        });
+    </script>
+}
