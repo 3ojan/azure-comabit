@@ -9,9 +9,12 @@ namespace Comabit.BL.Geo
     using Comabit.BL.Shared;
     using Comabit.DL.Data.Geo;
     using Comabit.DL.Interfaces;
+
     using CsvHelper;
     using CsvHelper.Configuration;
+
     using Microsoft.EntityFrameworkCore;
+
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -117,9 +120,9 @@ namespace Comabit.BL.Geo
             {
                 return new GeoImportResult($"Import erfolgreich: {changes} Änderungen durchgeführt.");
             }
-            else 
-            { 
-                return new GeoImportResult($"Keine Objekte für den Import gefunden."); 
+            else
+            {
+                return new GeoImportResult($"Keine Objekte für den Import gefunden.");
             }
         }
 
@@ -133,7 +136,7 @@ namespace Comabit.BL.Geo
                 TrimOptions = TrimOptions.Trim
             };
 
-            csvConfig.RegisterClassMap<GeoNamesImportClassMap>();
+            //csvConfig.RegisterClassMap<GeoNamesImportClassMap>();
 
             List<GeoNamesImportItem> records = new List<GeoNamesImportItem>();
 
@@ -193,7 +196,7 @@ namespace Comabit.BL.Geo
                 TrimOptions = TrimOptions.Trim
             };
 
-            csvConfig.RegisterClassMap<GeoPopulationImportClassMap>();
+            //csvConfig.RegisterClassMap<GeoPopulationImportClassMap>();
 
             List<GeoPopulationImportItem> records = new List<GeoPopulationImportItem>();
 
