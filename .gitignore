@@ -29,8 +29,6 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-[Ll]og/
-[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -364,24 +362,9 @@ _bin/
 [Dd]eploy/
 [Ii]gnore/
 
-Click2Rent.Web20/Click2Rent.Web20/App_Data/Files/
-Click2Rent.Web20/Click2Rent.Web20/App_Data/Update/
-Click2Rent.WebMobile/App_Data/Files/
-Click2Rent.Web/App_Data/
-
-Click2Rent.MobileRent/Click2Rent.Web20/App_Data/
-Click2Rent.MobileRent/Click2Rent.Web20/Files/
-
 .cr/
 
-ErrorLog/
-[Ll]og/
-
 cs.config
-/Click2Rent.MobileAdmin_v2
-/Click2Rent.MobileAdmin
 
 [Oo]ld
 _old
-
-/Click2Rent.DesktopAdminWebApi/Click2Rent.DesktopAdminWebApi/data/files/Uprent6_Data
