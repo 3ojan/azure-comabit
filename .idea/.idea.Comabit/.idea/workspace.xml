@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65ef1b05-6bd0-493c-9d1a-8f066a47fe83" name="Changes" comment="" />
+    <list default="true" id="65ef1b05-6bd0-493c-9d1a-8f066a47fe83" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/03-Comabit-DL/Comabit.DL/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/03-Comabit-DL/Comabit.DL/appsettings.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,9 +23,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2lyoaz4joOd4wo0jnnXZTaJ4zOn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,7 +36,7 @@
     ".NET Launch Settings Profile.Comabit.BL.executor": "Run",
     ".NET Launch Settings Profile.Comabit.UI: Comabit.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "azure-80",
+    "git-widget-placeholder": "dotnet8",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -99,6 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1726161744806</updated>
       <workItem from="1726161745890" duration="6263000" />
+      <workItem from="1726228353283" duration="13000" />
     </task>
     <servers />
   </component>
